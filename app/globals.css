@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
+/* SENAKO Dental Clinic visual system */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-page:    #FFFFFF;
+  --bg-card:    #FFFFFF;
+  --border:     #DCE8E0;
+  --text-base:  #17231D;
+  --text-muted: #64756A;
+  --primary:    #18794E;
+  --primary-lt: #EAF7EF;
+  --navbar:     #DDF3E4;
+  --sidebar:    #111A16;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-base);
 }
+
+* { box-sizing: border-box; }
+
+/* Page backgrounds — apply everywhere */
+.page-bg     { background: var(--bg-page) !important; }
+.card-bg     { background: var(--bg-card) !important; }
+
+/* PrimeReact's unstyled components inherit the same compact clinic rhythm. */
+.p-button { border-radius: 10px; font-weight: 700; }
+.p-card { border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 8px 24px rgb(17 26 22 / 5%); }
+.p-inputtext:focus { box-shadow: 0 0 0 3px rgb(24 121 78 / 15%); }
