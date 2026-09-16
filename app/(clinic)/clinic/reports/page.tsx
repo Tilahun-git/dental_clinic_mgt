@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useAppointments } from '../../../lib/appointments-store';
 import { patients, invoices, inventory, payrollRecords } from '../../../lib/mock-data';
 import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Download } from 'lucide-react';
-import { downloadCsv } from '../../../lib/document-utils';
+import { Download, FileDown, FileSpreadsheet } from 'lucide-react';
+import { downloadExcel, downloadPdf } from '../../../lib/document-utils';
 
 const tabs = ['Patient Reports', 'Appointment Reports', 'Financial Reports', 'Inventory Reports'];
 
@@ -45,40 +45,44 @@ export default function ReportsPage() {
     value: inventory.filter(i => i.category === cat).reduce((s, i) => s + i.quantity, 0),
   }));
 
-  const exportReport = () => {
+  const getReportData = (): { filename: string; title: string; headers: string[]; rows: (string | number)[][] } => {
     if (tab === 'Patient Reports') {
-      downloadCsv('patient-report.csv', ['Metric', 'Value'], [
+      return { filename: 'patient-report', title: 'Patient Report', headers: ['Metric', 'Value'], rows: [
         ['Total Registered Patients', patients.length],
         ['Active Patients', patients.filter(p => p.status === 'Active').length],
         ['Inactive Patients', patients.filter(p => p.status === 'Inactive').length],
         ['Male Patients', patients.filter(p => p.gender === 'Male').length],
         ['Female Patients', patients.filter(p => p.gender === 'Female').length],
-      ]);
-      return;
+      ] };
     }
     if (tab === 'Appointment Reports') {
-      downloadCsv('appointment-report.csv', ['Status', 'Count'], statusCounts.map(item => [item.label, item.value]));
-      return;
+      return { filename: 'appointment-report', title: 'Appointment Report', headers: ['Status', 'Count'], rows: statusCounts.map(item => [item.label, item.value]) };
     }
     if (tab === 'Financial Reports') {
-      downloadCsv('financial-report.csv', ['Metric', 'Amount (ETB)'], [
+      return { filename: 'financial-report', title: 'Financial Report', headers: ['Metric', 'Amount (ETB)'], rows: [
         ['Total Billed', invoices.reduce((s, i) => s + i.total, 0)],
         ['Collected', totalRevenue],
         ['Outstanding', invoices.reduce((s, i) => s + i.balance, 0)],
         ['Payroll Cost', totalPayroll],
-      ]);
-      return;
+      ] };
     }
-    downloadCsv('inventory-report.csv', ['Category', 'Quantity'], categoryStock.map(item => [item.label, item.value]));
+    return { filename: 'inventory-report', title: 'Inventory Report', headers: ['Category', 'Quantity'], rows: categoryStock.map(item => [item.label, item.value]) };
   };
+
+  const reportData = getReportData();
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Reports</h1>
-        <button onClick={exportReport} className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
-          <Download size={15} /> Export CSV
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={() => downloadPdf(`${reportData.filename}.pdf`, reportData.title, reportData.headers, reportData.rows)} className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            <FileDown size={15} /> PDF
+          </button>
+          <button onClick={() => downloadExcel(`${reportData.filename}.xlsx`, 'Report', reportData.headers, reportData.rows)} className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            <FileSpreadsheet size={15} /> Excel
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">

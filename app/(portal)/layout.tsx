@@ -2,12 +2,13 @@
 
 import { useAuth } from '../lib/auth-context';
 import { PortalSidebar } from '../components/layout/portal-sidebar';
+import { ThemeToggle } from '../components/theme-toggle';
 import { Bell, Stethoscope } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-const BG = '#FFFFFF';
-const BORDER = '#DCE8E0';
+const BG = 'var(--bg-page)';
+const BORDER = 'var(--border)';
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -40,9 +41,10 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
     <div className="h-screen flex overflow-hidden" style={{ background: BG }}>
       <PortalSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="h-16 flex items-center justify-between px-6 flex-shrink-0 shadow-sm" style={{ background: '#DDF3E4', borderBottom: `1px solid ${BORDER}` }}>
+        <header className="h-16 flex items-center justify-between px-6 flex-shrink-0 shadow-sm" style={{ background: 'var(--navbar)', borderBottom: `1px solid ${BORDER}` }}>
           <p className="text-sm font-bold text-emerald-800 tracking-wide">Patient Portal</p>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <button className="relative p-2 rounded-xl hover:bg-stone-100 transition-colors">
               <Bell size={18} className="text-stone-500" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />

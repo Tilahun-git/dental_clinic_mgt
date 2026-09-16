@@ -4,9 +4,9 @@ import { invoices } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { InvoiceBadge } from '../../../components/ui/badge';
-import { Receipt, Plus, DollarSign, Printer } from 'lucide-react';
+import { Receipt, Plus, DollarSign, Printer, FileDown } from 'lucide-react';
 import Link from 'next/link';
-import { printInvoice } from '../../../lib/document-utils';
+import { downloadInvoicePdf, printInvoice } from '../../../lib/document-utils';
 
 export default function BillingPage() {
   const totalRevenue = invoices.reduce((s, inv) => s + (inv.total - inv.balance), 0);
@@ -77,6 +77,9 @@ export default function BillingPage() {
                       </Link>
                       <Button variant="ghost" size="sm" onClick={() => printInvoice(inv)} title="Generate invoice">
                         <Printer size={14} />
+                      </Button>
+                      <Button variant="ghost" size="sm" onClick={() => downloadInvoicePdf(inv)} title="Download invoice PDF">
+                        <FileDown size={14} />
                       </Button>
                     </div>
                   </td>

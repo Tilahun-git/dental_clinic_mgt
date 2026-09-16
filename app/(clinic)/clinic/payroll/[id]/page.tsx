@@ -6,7 +6,7 @@ import { payrollRecords } from '../../../../lib/mock-data';
 import { Badge } from '../../../../components/ui/badge';
 import { Card } from '../../../../components/ui/card';
 import { ArrowLeft, Download, CreditCard } from 'lucide-react';
-import { printPayslip } from '../../../../lib/document-utils';
+import { downloadPdf, printPayslip } from '../../../../lib/document-utils';
 
 const statusMap: Record<string, { label: string; variant: 'success' | 'warning' | 'danger' | 'info' | 'default' }> = {
   DRAFT: { label: 'Draft', variant: 'default' },
@@ -44,6 +44,9 @@ export default function PayrollDetailPage() {
         <div className="flex gap-2">
           <button onClick={() => printPayslip(payroll)} className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-xl text-sm font-semibold">
             <Download size={14} /> Generate Payslip
+          </button>
+          <button onClick={() => downloadPdf(`${payroll.payrollNumber}.pdf`, `Payslip - ${payroll.employeeName}`, ['Item', 'Amount'], [['Basic Salary', payroll.basicSalary], ['Overtime', payroll.overtime], ['Bonus', payroll.bonus], ['Allowance', payroll.allowance], ['Gross Salary', payroll.grossSalary], ['Tax', payroll.tax], ['Pension', payroll.pension], ['Other Deductions', payroll.otherDeductions], ['Total Deductions', payroll.totalDeductions], ['Net Salary', payroll.netSalary]])} className="inline-flex items-center gap-2 bg-sky-600 text-white hover:bg-sky-700 px-3 py-2 rounded-xl text-sm font-semibold">
+            <Download size={14} /> Download PDF
           </button>
           <button className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-xl text-sm font-semibold">
             <CreditCard size={14} /> Approve

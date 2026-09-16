@@ -11,11 +11,18 @@ export default function RegisterPage() {
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', phone: '',
     dob: '', gender: '', password: '', confirmPassword: '',
-    address: '', emergencyContact: '', bloodType: '', allergies: '',
+    address: '', emergencyContact: '', bloodType: '', allergies: '', category: 'New Patient',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    localStorage.setItem('dcms_pending_registration', JSON.stringify({
+      name: `${form.firstName} ${form.lastName}`.trim(),
+      email: form.email,
+      phone: form.phone,
+      category: form.category,
+      registeredAt: new Date().toISOString(),
+    }));
     setSubmitted(true);
   };
 
@@ -27,7 +34,8 @@ export default function RegisterPage() {
             <CheckCircle size={32} className="text-emerald-500" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 mb-2">Registration Successful!</h2>
-          <p className="text-slate-500 mb-6">Welcome, <strong>{form.firstName}</strong>! Your patient account has been created. You can now log in.</p>
+          <p className="text-slate-500 mb-3">Welcome, <strong>{form.firstName}</strong>! Your patient account has been created. You can now log in.</p>
+          <p className="text-sm font-semibold text-emerald-700 bg-emerald-50 rounded-xl px-3 py-2 mb-6">Category: {form.category}</p>
           <button
             onClick={() => router.push('/login')}
             className="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl transition-colors"
@@ -89,6 +97,17 @@ export default function RegisterPage() {
               <label className="block text-sm font-medium text-slate-700 mb-1">Address</label>
               <input type="text" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })}
                 className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Sub-city, Addis Ababa" />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-slate-700 mb-1">Patient Category *</label>
+              <select required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
+                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white">
+                <option>New Patient</option>
+                <option>Returning Patient</option>
+                <option>Emergency Care</option>
+                <option>Child Patient</option>
+              </select>
+              <p className="text-xs text-slate-400 mt-1">New registrations start as New Patient by default.</p>
             </div>
           </div>
 

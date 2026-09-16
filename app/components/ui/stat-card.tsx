@@ -23,13 +23,13 @@ export function StatCard({ title, value, icon: Icon, trend, color = 'orange', cl
   const c = colorMap[color] ?? colorMap.orange;
   return (
     <div
-      className={cn('bg-white rounded-2xl shadow-sm p-5', className)}
-      style={{ border: '1px solid #E8E0D8' }}
+      className={cn('bg-[var(--bg-card)] rounded-2xl shadow-sm p-5', className)}
+      style={{ border: '1px solid var(--border)' }}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-stone-500 font-medium">{title}</p>
-          <p className="text-2xl font-black text-stone-900 mt-1">{value}</p>
+          <p className="text-sm text-[var(--text-muted)] font-medium">{title}</p>
+          <p className="text-2xl font-black text-[var(--text-heading)] mt-1">{value}</p>
           {trend && (
             <div className={cn('flex items-center gap-1 mt-1.5 text-xs font-semibold',
               trend.up ? 'text-emerald-600' : 'text-red-500')}>

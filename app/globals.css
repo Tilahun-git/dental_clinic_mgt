@@ -11,12 +11,28 @@
   --primary-lt: #EAF7EF;
   --navbar:     #DDF3E4;
   --sidebar:    #334155;
+  --surface-soft: #F4F8F5;
+  --text-heading: #17231D;
+}
+
+:root.dark {
+  --bg-page:    #0B0D0C;
+  --bg-card:    #151918;
+  --border:     #2D3933;
+  --text-base:  #F2F7F3;
+  --text-muted: #A7B7AD;
+  --primary-lt: #163425;
+  --navbar:     #121815;
+  --sidebar:    #090B0A;
+  --surface-soft: #111613;
+  --text-heading: #F2F7F3;
 }
 
 body {
   font-family: 'Avenir Next', 'Segoe UI', sans-serif;
   background: var(--bg-page);
   color: var(--text-base);
+  transition: background-color 180ms ease, color 180ms ease;
 }
 
 * { box-sizing: border-box; }
@@ -24,6 +40,52 @@ body {
 /* Page backgrounds — apply everywhere */
 .page-bg     { background: var(--bg-page) !important; }
 .card-bg     { background: var(--bg-card) !important; }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text-base);
+  background: var(--bg-card);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.theme-toggle:hover { background: var(--primary-lt); }
+
+.dark .bg-white { background-color: var(--bg-card); }
+.dark .bg-slate-50 { background-color: var(--surface-soft); }
+.dark .bg-slate-100,
+.dark .bg-stone-100,
+.dark .bg-gray-50 { background-color: var(--surface-soft); }
+.dark .text-slate-800,
+.dark .text-stone-900,
+.dark .text-gray-900 { color: var(--text-heading); }
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-stone-500,
+.dark .text-stone-400,
+.dark .text-gray-500,
+.dark .text-gray-400 { color: var(--text-muted); }
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-slate-50,
+.dark .border-stone-200,
+.dark .border-gray-200 { border-color: var(--border); }
+.dark [style*="#E8E0D8"],
+.dark [style*="#F8F5F2"],
+.dark [style*="#F5F0EB"],
+.dark [style*="#F0EBE5"] { border-color: var(--border) !important; background-color: var(--surface-soft); }
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-stone-800,
+.dark .text-stone-700 { color: var(--text-base); }
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-stone-50:hover,
+.dark .hover\:bg-gray-50:hover { background-color: var(--surface-soft); }
 
 /* PrimeReact's unstyled components inherit the same compact clinic rhythm. */
 .p-button { border-radius: 10px; font-weight: 700; }

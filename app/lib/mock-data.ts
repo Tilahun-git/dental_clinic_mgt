@@ -11,15 +11,15 @@ export type ToothCondition = 'HEALTHY' | 'CARIES' | 'MISSING' | 'FILLED' | 'CROW
 // ==================== SERVICES ====================
 
 export const services = [
-  { id: 's1', name: 'General Consultation', description: 'Comprehensive oral examination and diagnosis', duration: 30, price: 500, category: 'General', icon: '🦷' },
-  { id: 's2', name: 'Teeth Cleaning', description: 'Professional dental cleaning and scaling', duration: 45, price: 800, category: 'Preventive', icon: '✨' },
-  { id: 's3', name: 'Root Canal Treatment', description: 'Complete root canal therapy for infected teeth', duration: 90, price: 4500, category: 'Endodontic', icon: '🔬' },
-  { id: 's4', name: 'Dental Implant', description: 'Permanent tooth replacement with titanium implant', duration: 120, price: 25000, category: 'Surgical', icon: '🔩' },
-  { id: 's5', name: 'Teeth Whitening', description: 'Professional in-office whitening treatment', duration: 60, price: 3500, category: 'Cosmetic', icon: '⭐' },
-  { id: 's6', name: 'Orthodontics', description: 'Braces and clear aligners for teeth alignment', duration: 60, price: 35000, category: 'Orthodontic', icon: '😁' },
-  { id: 's7', name: 'Tooth Extraction', description: 'Safe removal of damaged or impacted teeth', duration: 45, price: 1200, category: 'Surgical', icon: '🦺' },
-  { id: 's8', name: 'Dental Filling', description: 'Composite or amalgam filling for cavities', duration: 45, price: 1500, category: 'Restorative', icon: '🔧' },
-  { id: 's9', name: 'Dental Crown', description: 'Porcelain or metal crown for damaged teeth', duration: 90, price: 8000, category: 'Restorative', icon: '👑' },
+  { id: 's1', name: 'General Consultation', description: 'Comprehensive oral examination and diagnosis', duration: 30, price: 500, category: 'General', icon: '🦷', image: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=900&q=85' },
+  { id: 's2', name: 'Teeth Cleaning', description: 'Professional dental cleaning and scaling', duration: 45, price: 800, category: 'Preventive', icon: '✨', image: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=85' },
+  { id: 's3', name: 'Root Canal Treatment', description: 'Complete root canal therapy for infected teeth', duration: 90, price: 4500, category: 'Endodontic', icon: '🔬', image: 'https://images.unsplash.com/photo-1588776814546-daab30f310ce?auto=format&fit=crop&w=900&q=85' },
+  { id: 's4', name: 'Dental Implant', description: 'Permanent tooth replacement with titanium implant', duration: 120, price: 25000, category: 'Surgical', icon: '🔩', image: 'https://images.unsplash.com/photo-1606265752439-1f18756aa2a5?auto=format&fit=crop&w=900&q=85' },
+  { id: 's5', name: 'Teeth Whitening', description: 'Professional in-office whitening treatment', duration: 60, price: 3500, category: 'Cosmetic', icon: '⭐', image: 'https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?auto=format&fit=crop&w=900&q=85' },
+  { id: 's6', name: 'Orthodontics', description: 'Braces and clear aligners for teeth alignment', duration: 60, price: 35000, category: 'Orthodontic', icon: '😁', image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85' },
+  { id: 's7', name: 'Tooth Extraction', description: 'Safe removal of damaged or impacted teeth', duration: 45, price: 1200, category: 'Surgical', icon: '🦺', image: 'https://images.unsplash.com/photo-1581585099405-3f7c5b4f3a4a?auto=format&fit=crop&w=900&q=85' },
+  { id: 's8', name: 'Dental Filling', description: 'Composite or amalgam filling for cavities', duration: 45, price: 1500, category: 'Restorative', icon: '🔧', image: 'https://images.unsplash.com/photo-1581585099405-3f7c5b4f3a4a?auto=format&fit=crop&w=900&q=85' },
+  { id: 's9', name: 'Dental Crown', description: 'Porcelain or metal crown for damaged teeth', duration: 90, price: 8000, category: 'Restorative', icon: '👑', image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=85' },
 ];
 
 // ==================== DENTISTS ====================
@@ -33,6 +33,7 @@ export const dentists = [
     bio: 'Dr. Yohannes has over 12 years of experience in general and cosmetic dentistry. He completed his training at Addis Ababa University and has additional certification in cosmetic procedures.',
     available: true,
     avatar: 'YT',
+    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'd2',
@@ -42,6 +43,7 @@ export const dentists = [
     bio: 'Dr. Marta specializes in orthodontic treatment for both children and adults. She has a passion for creating beautiful, confident smiles using the latest techniques.',
     available: true,
     avatar: 'MB',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'd3',
@@ -51,6 +53,7 @@ export const dentists = [
     bio: 'With 15 years in oral surgery, Dr. Dawit is our lead implantologist. He has successfully placed over 800 implants and performs complex extractions with precision.',
     available: true,
     avatar: 'DG',
+    image: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'd4',
@@ -60,6 +63,7 @@ export const dentists = [
     bio: 'Dr. Tigist is an expert in root canal therapy and restorative dentistry. She uses the latest rotary endodontic technology to ensure painless, efficient treatments.',
     available: false,
     avatar: 'TH',
+    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=600&q=85',
   },
 ];
 

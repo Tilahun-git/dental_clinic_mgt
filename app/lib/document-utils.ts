@@ -1,3 +1,6 @@
+import { jsPDF } from 'jspdf';
+import * as XLSX from 'xlsx';
+
 type InvoiceDocument = {
   invoiceNumber: string;
   patientName: string;
@@ -105,4 +108,78 @@ export function downloadCsv(filename: string, headers: string[], rows: (string |
   link.click();
   link.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function downloadBlob(filename: string, blob: Blob) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+export function downloadPdf(filename: string, title: string, headers: string[], rows: (string | number)[][]) {
+  const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+  const margin = 40;
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const usableWidth = pageWidth - margin * 2;
+  const columnWidth = usableWidth / headers.length;
+  let y = 48;
+
+  pdf.setFontSize(18);
+  pdf.setTextColor(24, 121, 78);
+  pdf.text(title, margin, y);
+  y += 24;
+  pdf.setFontSize(9);
+  pdf.setTextColor(100, 117, 106);
+  pdf.text(`Generated ${new Date().toLocaleString()}`, margin, y);
+  y += 20;
+
+  const drawHeader = () => {
+    pdf.setFillColor(24, 121, 78);
+    pdf.rect(margin, y, usableWidth, 22, 'F');
+    pdf.setFontSize(9);
+    pdf.setTextColor(255, 255, 255);
+    headers.forEach((header, index) => pdf.text(String(header), margin + index * columnWidth + 6, y + 14, { maxWidth: columnWidth - 12 }));
+    y += 22;
+  };
+
+  drawHeader();
+  rows.forEach((row, rowIndex) => {
+    if (y > 760) {
+      pdf.addPage();
+      y = 48;
+      drawHeader();
+    }
+    if (rowIndex % 2 === 0) {
+      pdf.setFillColor(242, 248, 245);
+      pdf.rect(margin, y, usableWidth, 20, 'F');
+    }
+    pdf.setFontSize(8);
+    pdf.setTextColor(23, 35, 29);
+    row.forEach((value, index) => pdf.text(String(value), margin + index * columnWidth + 6, y + 13, { maxWidth: columnWidth - 12 }));
+    y += 20;
+  });
+
+  pdf.save(filename);
+}
+
+export function downloadExcel(filename: string, sheetName: string, headers: string[], rows: (string | number)[][]) {
+  const worksheet = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  worksheet['!cols'] = headers.map(() => ({ wch: 22 }));
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, sheetName.slice(0, 31));
+  XLSX.writeFile(workbook, filename);
+}
+
+export function downloadInvoicePdf(invoice: InvoiceDocument) {
+  downloadPdf(
+    `${invoice.invoiceNumber}.pdf`,
+    `SENAKO Dental Clinic - ${invoice.invoiceNumber}`,
+    ['Description', 'Qty', 'Unit Price', 'Total'],
+    invoice.items.map(item => [item.description, item.quantity, money(item.unitPrice), money(item.total)])
+  );
 }

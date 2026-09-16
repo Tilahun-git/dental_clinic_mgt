@@ -2,12 +2,13 @@
 
 import { clinicRoles, useAuth } from '../lib/auth-context';
 import { ClinicSidebar } from '../components/layout/clinic-sidebar';
+import { ThemeToggle } from '../components/theme-toggle';
 import { Bell, Search, Stethoscope } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-const BG = '#FFFFFF';
-const BORDER = '#DCE8E0';
+const BG = 'var(--bg-page)';
+const BORDER = 'var(--border)';
 
 export default function ClinicLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -41,17 +42,18 @@ export default function ClinicLayout({ children }: { children: React.ReactNode }
       <ClinicSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top header */}
-        <header className="h-16 flex items-center justify-between px-6 flex-shrink-0 shadow-sm" style={{ background: '#DDF3E4', borderBottom: `1px solid ${BORDER}` }}>
+        <header className="h-16 flex items-center justify-between px-6 flex-shrink-0 shadow-sm" style={{ background: 'var(--navbar)', borderBottom: `1px solid ${BORDER}` }}>
           <div className="relative hidden md:block">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
             <input
               type="text"
               placeholder="Search patients..."
               className="pl-9 pr-4 py-2 text-sm rounded-xl w-56 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ border: `1.5px solid ${BORDER}`, background: '#FFFFFF' }}
+              style={{ border: `1.5px solid ${BORDER}`, background: 'var(--bg-card)', color: 'var(--text-base)' }}
             />
           </div>
           <div className="flex items-center gap-3 ml-auto">
+            <ThemeToggle />
             <button className="relative p-2 rounded-xl transition-colors hover:bg-stone-100">
               <Bell size={18} className="text-stone-500" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />

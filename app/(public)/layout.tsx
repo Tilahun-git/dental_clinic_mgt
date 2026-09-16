@@ -2,7 +2,7 @@ import { PublicNavbar } from '../components/layout/public-navbar';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col page-bg">
       <PublicNavbar />
       <main className="flex-1">{children}</main>
       <footer className="bg-slate-700 text-white">

@@ -11,7 +11,7 @@ export function Card({ children, className, padding = true }: CardProps) {
   return (
     <PrimeCard
       className={cn(
-        'bg-white',
+        'bg-[var(--bg-card)] border-[var(--border)] text-[var(--text-base)]',
         padding && 'p-5',
         className
       )}

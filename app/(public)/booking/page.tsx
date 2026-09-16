@@ -74,8 +74,8 @@ function BookingPageContent() {
           </p>
           <p className="text-stone-400 text-sm mb-8">Don&apos;t have an account? Register for free.</p>
           <div className="flex flex-col gap-3">
-            <Link href={isAuthenticated ? '/portal/dashboard' : '/login?returnTo=%2Fbooking'} className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-2xl transition-all shadow-md text-center">
-              {isAuthenticated ? 'Go to Patient Portal' : 'Login to Book Appointment'}
+            <Link href="/login?returnTo=%2Fbooking" className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-2xl transition-all shadow-md text-center">
+              Login as a Patient to Book
             </Link>
             <Link href="/register" className="w-full border-2 border-teal-200 text-teal-600 hover:bg-teal-50 font-semibold py-3 rounded-2xl transition-colors text-center">
               Create New Account

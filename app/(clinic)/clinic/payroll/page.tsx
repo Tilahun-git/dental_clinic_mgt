@@ -5,7 +5,7 @@ import { payrollRecords } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
 import { Banknote, CheckCircle2, Clock3, AlertTriangle, ArrowRight, Download } from 'lucide-react';
-import { printPayslip } from '../../../lib/document-utils';
+import { downloadExcel, downloadPdf, printPayslip } from '../../../lib/document-utils';
 
 const payrollStatusMap: Record<string, { label: string; variant: 'success' | 'warning' | 'danger' | 'info' | 'default' }> = {
   DRAFT: { label: 'Draft', variant: 'default' },
@@ -20,6 +20,8 @@ export default function PayrollPage() {
   const totalDeductions = payrollRecords.reduce((sum, item) => sum + item.totalDeductions, 0);
   const totalNet = payrollRecords.reduce((sum, item) => sum + item.netSalary, 0);
   const paidCount = payrollRecords.filter(item => item.status === 'PAID').length;
+  const payrollHeaders = ['Payroll #', 'Employee', 'Position', 'Pay Period', 'Gross', 'Deductions', 'Net', 'Status'];
+  const payrollRows = payrollRecords.map(record => [record.payrollNumber, record.employeeName, record.position, record.payPeriod, record.grossSalary, record.totalDeductions, record.netSalary, record.status]);
 
   return (
     <div>
@@ -28,9 +30,17 @@ export default function PayrollPage() {
           <h1 className="text-2xl font-black text-slate-800">Payroll & Payslips</h1>
           <p className="text-slate-500 text-sm mt-1">Monthly salary cycle for clinic staff</p>
         </div>
-        <Link href="/clinic/payroll/preview" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
-          <Banknote size={15} /> Run Payroll
-        </Link>
+        <div className="flex items-center gap-2">
+          <button onClick={() => downloadPdf('payroll-report.pdf', 'Payroll Report', payrollHeaders, payrollRows)} className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-3 py-2.5 rounded-xl transition-colors">
+            <Download size={15} /> PDF
+          </button>
+          <button onClick={() => downloadExcel('payroll-report.xlsx', 'Payroll', payrollHeaders, payrollRows)} className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-3 py-2.5 rounded-xl transition-colors">
+            <Download size={15} /> Excel
+          </button>
+          <Link href="/clinic/payroll/preview" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+            <Banknote size={15} /> Run Payroll
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">

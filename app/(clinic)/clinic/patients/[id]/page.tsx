@@ -7,8 +7,9 @@ import { patients, invoices, treatmentPlans, prescriptions, medicalRecords } fro
 import { Card, CardHeader, CardTitle } from '../../../../components/ui/card';
 import { Badge, AppointmentBadge, InvoiceBadge } from '../../../../components/ui/badge';
 import { Button } from '../../../../components/ui/button';
-import { User, Phone, Mail, MapPin, Heart, AlertCircle, Calendar, ArrowLeft } from 'lucide-react';
+import { User, Phone, Mail, MapPin, Heart, AlertCircle, Calendar, ArrowLeft, FileDown, FileSpreadsheet } from 'lucide-react';
 import Link from 'next/link';
+import { downloadExcel, downloadPdf } from '../../../../lib/document-utils';
 
 const tabs = ['Overview', 'Appointments', 'Records', 'Treatments', 'Prescriptions', 'Invoices'] as const;
 type Tab = typeof tabs[number];
@@ -24,6 +25,11 @@ export default function PatientDetailPage() {
   const patientPlans = treatmentPlans.filter(t => t.patientId === id);
   const patientRx = prescriptions.filter(r => r.patientId === id);
   const patientRecords = medicalRecords.filter(r => r.patientId === id);
+  const treatmentExportHeaders = ['Patient', 'Diagnosis', 'Dentist', 'Created', 'Treatment', 'Quantity', 'Unit Price', 'Status'];
+  const treatmentExportRows = patientPlans.flatMap(plan => plan.items.map(item => [
+    `${patient?.firstName ?? ''} ${patient?.lastName ?? ''}`.trim(), plan.diagnosis, plan.dentistName, plan.createdAt,
+    item.service, item.quantity, item.unitPrice, item.status,
+  ]));
 
   if (!patient) {
     return (
@@ -197,6 +203,14 @@ export default function PatientDetailPage() {
       {/* Treatments Tab */}
       {activeTab === 'Treatments' && (
         <div className="space-y-4">
+          <div className="flex justify-end gap-2">
+            <button onClick={() => downloadPdf(`${patient.patientId}-treatment-plans.pdf`, `${patient.firstName} ${patient.lastName} - Treatment Plans`, treatmentExportHeaders, treatmentExportRows)} className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-3 py-2 rounded-xl">
+              <FileDown size={14} /> PDF
+            </button>
+            <button onClick={() => downloadExcel(`${patient.patientId}-treatment-plans.xlsx`, 'Treatment Plans', treatmentExportHeaders, treatmentExportRows)} className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-3 py-2 rounded-xl">
+              <FileSpreadsheet size={14} /> Excel
+            </button>
+          </div>
           {patientPlans.length === 0 ? (
             <Card><p className="text-center py-8 text-slate-400 text-sm">No treatment plans</p></Card>
           ) : patientPlans.map(plan => (

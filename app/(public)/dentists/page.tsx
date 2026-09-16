@@ -4,10 +4,12 @@ import Link from 'next/link';
 
 export default function DentistsPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="page-bg min-h-full text-[var(--text-base)] px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-slate-800">Our Dental Team</h1>
-        <p className="text-slate-500 mt-3 text-lg max-w-2xl mx-auto">
+        <p className="text-amber-400 text-xs font-bold uppercase tracking-[0.24em] mb-3">The SENAKO team</p>
+        <h1 className="text-4xl font-bold text-[var(--text-heading)]">Our Dental Team</h1>
+        <p className="text-[var(--text-muted)] mt-3 text-lg max-w-2xl mx-auto">
           Our team of highly qualified dentists is committed to providing you with the best dental care in Ethiopia.
         </p>
       </div>
@@ -16,22 +18,27 @@ export default function DentistsPage() {
         {dentists.map((dentist) => (
           <div
             key={dentist.id}
-            className="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-lg transition-shadow"
+            className="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] overflow-hidden hover:border-amber-400/60 transition-colors"
           >
-            <div className="bg-gradient-to-r from-sky-500 to-sky-600 p-8 flex items-center gap-5">
-              <div className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                {dentist.avatar}
+            <div className="bg-[var(--surface-soft)] p-6 flex items-center gap-5">
+              <div
+                className="w-24 h-24 rounded-full bg-zinc-800 bg-cover bg-center ring-2 ring-amber-400/70 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
+                style={{ backgroundImage: `url(${dentist.image})` }}
+                role="img"
+                aria-label={`${dentist.name} portrait`}
+              >
+                <span className="sr-only">{dentist.avatar}</span>
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">{dentist.name}</h2>
-                <p className="text-sky-100 font-medium">{dentist.specialization}</p>
+                <h2 className="text-xl font-bold text-[var(--text-heading)]">{dentist.name}</h2>
+                <p className="text-amber-300 font-medium">{dentist.specialization}</p>
                 <div className="flex items-center gap-2 mt-2">
                   {dentist.available ? (
-                    <span className="flex items-center gap-1 text-emerald-200 text-sm">
+                    <span className="flex items-center gap-1 text-emerald-400 text-sm">
                       <CheckCircle size={14} /> Available
                     </span>
                   ) : (
-                    <span className="flex items-center gap-1 text-red-200 text-sm">
+                    <span className="flex items-center gap-1 text-red-400 text-sm">
                       <XCircle size={14} /> Currently Unavailable
                     </span>
                   )}
@@ -40,15 +47,15 @@ export default function DentistsPage() {
             </div>
             <div className="p-6">
               <div className="mb-4">
-                <span className="text-sm font-semibold text-sky-600 bg-sky-50 px-3 py-1 rounded-full">
+                <span className="text-sm font-semibold text-amber-300 bg-amber-400/10 px-3 py-1 rounded-full">
                   {dentist.experience} years of experience
                 </span>
               </div>
-              <p className="text-slate-600 leading-relaxed">{dentist.bio}</p>
+              <p className="text-[var(--text-muted)] leading-relaxed">{dentist.bio}</p>
               {dentist.available && (
                 <Link
                   href={`/booking?dentist=${dentist.id}`}
-                  className="mt-5 inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
+                  className="mt-5 inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-black font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors"
                 >
                   <Calendar size={16} /> Book with {dentist.name.split(' ')[1]}
                 </Link>
@@ -56,6 +63,7 @@ export default function DentistsPage() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

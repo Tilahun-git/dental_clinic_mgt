@@ -38,7 +38,11 @@ function LoginPageContent() {
       return;
     }
     const account = demoUsers.find(user => user.email.toLowerCase() === email.trim().toLowerCase());
-    if (account) router.push(getRoleHome(account.role));
+    if (account) {
+      const returnTo = searchParams.get('returnTo');
+      const safeReturnTo = returnTo?.startsWith('/') && !returnTo.startsWith('//') ? returnTo : null;
+      router.push(safeReturnTo && account.role === 'PATIENT' ? safeReturnTo : getRoleHome(account.role));
+    }
   };
 
   return (
