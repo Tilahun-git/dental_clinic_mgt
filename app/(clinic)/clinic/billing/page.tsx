@@ -72,7 +72,7 @@ export default function BillingPage() {
                   <td className="py-3 px-4"><InvoiceBadge status={inv.status} /></td>
                   <td className="py-3 px-4">
                     <div className="flex gap-1">
-                      <Link href={`/billing/${inv.id}`}>
+                      <Link href={`/clinic/billing/${inv.id}`}>
                         <Button variant="ghost" size="sm">View</Button>
                       </Link>
                       <Button variant="ghost" size="sm" onClick={() => printInvoice(inv)} title="Generate invoice">

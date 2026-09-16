@@ -1,6 +1,6 @@
 // ==================== TYPES ====================
 
-export type Role = 'ADMIN' | 'RECEPTIONIST' | 'DENTIST' | 'CASHIER' | 'INVENTORY_MANAGER' | 'PATIENT';
+export type Role = 'ADMIN' | 'RECEPTIONIST' | 'DENTIST' | 'INVENTORY_MANAGER' | 'PATIENT';
 
 export type AppointmentStatus = 'REQUESTED' | 'CONFIRMED' | 'CHECKED_IN' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED' | 'NO_SHOW';
 export type InvoiceStatus = 'UNPAID' | 'PARTIALLY_PAID' | 'PAID' | 'CANCELLED';
@@ -410,12 +410,6 @@ export const payrollRecords: PayrollEntry[] = [
     grossSalary: 22700, tax: 2200, pension: 1100, otherDeductions: 400, totalDeductions: 3700, netSalary: 19000,
     status: 'PAID', paymentDate: '2026-09-30', paymentMethod: 'Bank Transfer', paymentReference: 'BANK-PR-003', bankAccount: 'Dashen 3087654321',
   },
-  {
-    id: 'pr4', payrollNumber: 'PR-2026-09-004', employeeId: 'st6', employeeName: 'Tadesse Worku', position: 'Cashier',
-    payPeriod: '2026-09', basicSalary: 18000, overtime: 800, bonus: 1200, allowance: 900,
-    grossSalary: 20900, tax: 2100, pension: 1000, otherDeductions: 300, totalDeductions: 3400, netSalary: 17500,
-    status: 'CALCULATED', paymentDate: undefined, paymentMethod: undefined, paymentReference: undefined, bankAccount: 'CBE 1987654321',
-  },
 ];
 
 // ==================== INVENTORY ====================
@@ -453,7 +447,6 @@ export const staff = [
   { id: 'st3', name: 'Dr. Dawit Girma', role: 'DENTIST', email: 'dr.dawit@smilecare.et', phone: '+251 913 333333', department: 'Oral Surgery', hireDate: '2010-03-01', status: 'Active' },
   { id: 'st4', name: 'Dr. Tigist Haile', role: 'DENTIST', email: 'dr.tigist@smilecare.et', phone: '+251 914 444444', department: 'Endodontics', hireDate: '2015-01-20', status: 'On Leave' },
   { id: 'st5', name: 'Sara Mengistu', role: 'RECEPTIONIST', email: 'sara.m@smilecare.et', phone: '+251 915 555555', department: 'Front Desk', hireDate: '2020-04-10', status: 'Active' },
-  { id: 'st6', name: 'Tadesse Worku', role: 'CASHIER', email: 'tadesse.w@smilecare.et', phone: '+251 916 666666', department: 'Billing', hireDate: '2021-08-01', status: 'Active' },
   { id: 'st7', name: 'Liya Ayalew', role: 'INVENTORY_MANAGER', email: 'liya.a@smilecare.et', phone: '+251 917 777777', department: 'Supply Chain', hireDate: '2022-02-15', status: 'Active' },
   { id: 'st8', name: 'Admin User', role: 'ADMIN', email: 'admin@smilecare.et', phone: '+251 918 888888', department: 'Management', hireDate: '2010-01-01', status: 'Active' },
 ];
@@ -464,22 +457,18 @@ export const auditLogs = [
   { id: 'al1', userId: 'st8', userName: 'Admin User', action: 'CREATE', entity: 'Patient', entityId: 'PT-010', description: 'Registered new patient: Bethlehem Tsegaye', timestamp: '2025-07-14T08:05:23', previousValue: null, newValue: '{ patientId: "PT-010", status: "Active" }' },
   { id: 'al2', userId: 'st5', userName: 'Sara Mengistu', action: 'UPDATE', entity: 'Appointment', entityId: 'a3', description: 'Updated appointment status: CONFIRMED → CHECKED_IN', timestamp: '2025-07-14T09:12:45', previousValue: 'CONFIRMED', newValue: 'CHECKED_IN' },
   { id: 'al3', userId: 'st1', userName: 'Dr. Yohannes Tesfaye', action: 'CREATE', entity: 'Prescription', entityId: 'rx3', description: 'Created prescription for Meron Fekadu', timestamp: '2025-07-14T09:45:10', previousValue: null, newValue: '{ medications: ["Amoxicillin", "Ibuprofen"] }' },
-  { id: 'al4', userId: 'st6', userName: 'Tadesse Worku', action: 'CREATE', entity: 'Payment', entityId: 'pay1', description: 'Recorded payment of 10,000 ETB for INV-2025-0041', timestamp: '2025-07-13T14:30:00', previousValue: 'Balance: 26,775', newValue: 'Balance: 16,775' },
   { id: 'al5', userId: 'st5', userName: 'Sara Mengistu', action: 'CREATE', entity: 'Appointment', entityId: 'a15', description: 'Created new appointment for Tigist Worku', timestamp: '2025-07-13T11:20:33', previousValue: null, newValue: '{ patient: "Tigist Worku", date: "2025-07-16", status: "REQUESTED" }' },
   { id: 'al6', userId: 'st7', userName: 'Liya Ayalew', action: 'UPDATE', entity: 'Inventory', entityId: 'inv_i2', description: 'Updated stock for Lidocaine 2%: 25 → 3 cartridges', timestamp: '2025-07-13T10:15:00', previousValue: '25 Cartridges', newValue: '3 Cartridges' },
   { id: 'al7', userId: 'st3', userName: 'Dr. Dawit Girma', action: 'CREATE', entity: 'TreatmentPlan', entityId: 'tp5', description: 'Created treatment plan for Solomon Desta', timestamp: '2025-07-13T09:00:00', previousValue: null, newValue: '{ diagnosis: "Impacted wisdom teeth", cost: 6200 }' },
   { id: 'al8', userId: 'st8', userName: 'Admin User', action: 'UPDATE', entity: 'Staff', entityId: 'st4', description: 'Updated staff status: Active → On Leave', timestamp: '2025-07-12T17:00:00', previousValue: 'Active', newValue: 'On Leave' },
-  { id: 'al9', userId: 'st6', userName: 'Tadesse Worku', action: 'CREATE', entity: 'Invoice', entityId: 'inv6', description: 'Created invoice INV-2025-0036 for Solomon Desta', timestamp: '2025-07-13T14:00:00', previousValue: null, newValue: '{ total: 3885, status: "UNPAID" }' },
   { id: 'al10', userId: 'st5', userName: 'Sara Mengistu', action: 'UPDATE', entity: 'Appointment', entityId: 'a2', description: 'Updated appointment status: CONFIRMED → IN_PROGRESS', timestamp: '2025-07-14T09:30:00', previousValue: 'CONFIRMED', newValue: 'IN_PROGRESS' },
   { id: 'al11', userId: 'st2', userName: 'Dr. Marta Bekele', action: 'CREATE', entity: 'Prescription', entityId: 'rx7', description: 'Created prescription for Selamawit Alemu post-adjustment', timestamp: '2025-07-12T15:00:00', previousValue: null, newValue: '{ medications: ["Orthodontic Wax", "Fluoride Rinse"] }' },
   { id: 'al12', userId: 'st8', userName: 'Admin User', action: 'DELETE', entity: 'Service', entityId: 'old-s1', description: 'Removed deprecated service: Dental Cleaning (Old)', timestamp: '2025-07-11T10:00:00', previousValue: '{ name: "Dental Cleaning (Old)", price: 600 }', newValue: null },
   { id: 'al13', userId: 'st7', userName: 'Liya Ayalew', action: 'CREATE', entity: 'InventoryOrder', entityId: 'ord1', description: 'Created purchase order for low-stock items', timestamp: '2025-07-11T09:00:00', previousValue: null, newValue: '{ items: ["Composite Resin", "Lidocaine"], total: 5200 }' },
   { id: 'al14', userId: 'st5', userName: 'Sara Mengistu', action: 'UPDATE', entity: 'Patient', entityId: 'p5', description: 'Updated patient status: Active → Inactive', timestamp: '2025-07-10T14:00:00', previousValue: 'Active', newValue: 'Inactive' },
-  { id: 'al15', userId: 'st6', userName: 'Tadesse Worku', action: 'UPDATE', entity: 'Invoice', entityId: 'inv2', description: 'Invoice INV-2025-0040 marked as PAID', timestamp: '2025-07-07T16:00:00', previousValue: 'UNPAID', newValue: 'PAID' },
   { id: 'al16', userId: 'st3', userName: 'Dr. Dawit Girma', action: 'UPDATE', entity: 'TreatmentPlan', entityId: 'tp1', description: 'Updated treatment item: Crown Placement → IN_PROGRESS', timestamp: '2025-07-13T11:00:00', previousValue: 'PLANNED', newValue: 'IN_PROGRESS' },
   { id: 'al17', userId: 'st8', userName: 'Admin User', action: 'CREATE', entity: 'Staff', entityId: 'st7', description: 'Added new staff member: Liya Ayalew (Inventory Manager)', timestamp: '2025-07-01T09:00:00', previousValue: null, newValue: '{ name: "Liya Ayalew", role: "INVENTORY_MANAGER" }' },
   { id: 'al18', userId: 'st5', userName: 'Sara Mengistu', action: 'UPDATE', entity: 'Appointment', entityId: 'a13', description: 'Appointment cancelled by patient: Girma Tadesse', timestamp: '2025-07-10T08:00:00', previousValue: 'CONFIRMED', newValue: 'CANCELLED' },
-  { id: 'al19', userId: 'st6', userName: 'Tadesse Worku', action: 'CREATE', entity: 'Payment', entityId: 'pay4', description: 'Recorded partial payment of 2,000 ETB for INV-2025-0036', timestamp: '2025-07-13T14:35:00', previousValue: 'Balance: 3,885', newValue: 'Balance: 1,885' },
   { id: 'al20', userId: 'st1', userName: 'Dr. Yohannes Tesfaye', action: 'UPDATE', entity: 'DentalChart', entityId: 'chart-p1-14', description: 'Updated tooth #14 condition: CARIES → ROOT_CANAL', timestamp: '2025-07-13T10:30:00', previousValue: 'CARIES', newValue: 'ROOT_CANAL' },
 ];
 
@@ -526,7 +515,6 @@ export const demoUsers = [
   { id: 'u1', name: 'Admin User', email: 'admin@smilecare.et', password: 'Admin123!', role: 'ADMIN' as Role, staffId: 'st8' },
   { id: 'u2', name: 'Sara Mengistu', email: 'sara@smilecare.et', password: 'Sara123!', role: 'RECEPTIONIST' as Role, staffId: 'st5' },
   { id: 'u3', name: 'Dr. Yohannes Tesfaye', email: 'dr.yohannes@smilecare.et', password: 'Yohannes123!', role: 'DENTIST' as Role, staffId: 'st1' },
-  { id: 'u4', name: 'Tadesse Worku', email: 'tadesse@smilecare.et', password: 'Tadesse123!', role: 'CASHIER' as Role, staffId: 'st6' },
   { id: 'u5', name: 'Liya Ayalew', email: 'liya@smilecare.et', password: 'Liya123!', role: 'INVENTORY_MANAGER' as Role, staffId: 'st7' },
   { id: 'u6', name: 'Abebe Kebede', email: 'abebe.kebede@email.com', password: 'Abebe123!', role: 'PATIENT' as Role, patientId: 'p1' },
   { id: 'u7', name: 'Dr. Marta Bekele', email: 'dr.marta@smilecare.et', password: 'Marta123!', role: 'DENTIST' as Role, staffId: 'st2' },

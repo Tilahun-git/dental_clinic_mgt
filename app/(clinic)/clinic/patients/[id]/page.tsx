@@ -62,9 +62,11 @@ export default function PatientDetailPage() {
             </div>
           </div>
         </div>
-        <Button variant="primary" size="sm">
-          <Calendar size={14} /> New Appointment
-        </Button>
+        <Link href={`/booking?patient=${patient.id}`}>
+          <Button variant="primary" size="sm">
+            <Calendar size={14} /> New Appointment
+          </Button>
+        </Link>
       </div>
 
       {/* Tabs */}

@@ -6,13 +6,16 @@ import { Card } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Badge } from '../../../components/ui/badge';
 import { SearchInput } from '../../../components/ui/search-input';
-import { Package, Plus, AlertTriangle } from 'lucide-react';
+import { Package, Plus, AlertTriangle, X, Save } from 'lucide-react';
 
 export default function InventoryPage() {
   const [search, setSearch] = useState('');
-  const lowStock = inventory.filter(i => i.quantity < i.minQuantity);
+  const [items, setItems] = useState(inventory);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: '', category: 'General', quantity: 1, minQuantity: 1, unit: 'Piece', unitCost: 0, supplier: '', location: '', expiryDate: '' });
+  const lowStock = items.filter(i => i.quantity < i.minQuantity);
 
-  const filtered = inventory.filter(item =>
+  const filtered = items.filter(item =>
     `${item.name} ${item.category} ${item.supplier}`.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -21,10 +24,28 @@ export default function InventoryPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-800">Inventory</h1>
-          <p className="text-slate-500 text-sm mt-1">{inventory.length} items tracked</p>
+          <p className="text-slate-500 text-sm mt-1">{items.length} items tracked</p>
         </div>
-        <Button variant="primary"><Plus size={16} /> Add Item</Button>
+        <Button variant="primary" onClick={() => setShowForm(true)}><Plus size={16} /> Add Item</Button>
       </div>
+
+      {showForm && (
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-2xl p-5 mb-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-[var(--text-heading)]">Add Inventory Item</h2>
+            <button onClick={() => setShowForm(false)} aria-label="Close inventory form"><X size={18} /></button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {(['name', 'category', 'unit', 'supplier', 'location', 'expiryDate'] as const).map(field => (
+              <input key={field} value={form[field]} onChange={e => setForm({ ...form, [field]: e.target.value })} placeholder={field.replace(/([A-Z])/g, ' $1')} className="border border-slate-200 rounded-xl px-3 py-2 text-sm" />
+            ))}
+            <input type="number" value={form.quantity} onChange={e => setForm({ ...form, quantity: Number(e.target.value) })} placeholder="Quantity" className="border border-slate-200 rounded-xl px-3 py-2 text-sm" />
+            <input type="number" value={form.minQuantity} onChange={e => setForm({ ...form, minQuantity: Number(e.target.value) })} placeholder="Minimum quantity" className="border border-slate-200 rounded-xl px-3 py-2 text-sm" />
+            <input type="number" value={form.unitCost} onChange={e => setForm({ ...form, unitCost: Number(e.target.value) })} placeholder="Unit cost" className="border border-slate-200 rounded-xl px-3 py-2 text-sm" />
+          </div>
+          <Button variant="primary" size="sm" className="mt-3" onClick={() => { if (!form.name.trim()) return; setItems(current => [...current, { ...form, id: `custom-${Date.now()}` }]); setShowForm(false); }}><Save size={14} /> Save Item</Button>
+        </div>
+      )}
 
       {/* Low stock alert */}
       {lowStock.length > 0 && (
@@ -40,10 +61,10 @@ export default function InventoryPage() {
       {/* Category summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: 'Total Items', value: inventory.length, icon: Package, color: 'text-sky-600 bg-sky-50' },
+            { label: 'Total Items', value: items.length, icon: Package, color: 'text-sky-600 bg-sky-50' },
           { label: 'Low Stock', value: lowStock.length, icon: AlertTriangle, color: 'text-red-600 bg-red-50' },
-          { label: 'Categories', value: new Set(inventory.map(i => i.category)).size, icon: Package, color: 'text-emerald-600 bg-emerald-50' },
-          { label: 'Total Value', value: `${inventory.reduce((s, i) => s + (i.quantity * i.unitCost), 0).toLocaleString()} ETB`, icon: Package, color: 'text-amber-600 bg-amber-50' },
+          { label: 'Categories', value: new Set(items.map(i => i.category)).size, icon: Package, color: 'text-emerald-600 bg-emerald-50' },
+          { label: 'Total Value', value: `${items.reduce((s, i) => s + (i.quantity * i.unitCost), 0).toLocaleString()} ETB`, icon: Package, color: 'text-amber-600 bg-amber-50' },
         ].map((stat) => (
           <div key={stat.label} className={`${stat.color} rounded-xl p-4`}>
             <p className="text-2xl font-bold">{stat.value}</p>

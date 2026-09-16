@@ -80,7 +80,7 @@ export default function PatientsPage() {
                   </td>
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-1">
-                      <Link href={`/patients/${patient.id}`}>
+                      <Link href={`/clinic/patients/${patient.id}`}>
                         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                           <Eye size={14} />
                         </Button>

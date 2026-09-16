@@ -70,7 +70,6 @@ export default function DentistDashboard() {
             </div>
             <div className="flex gap-2">
               <Link href="/clinic/records" className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold py-2 px-3 rounded-xl transition-colors">Record</Link>
-              <Link href={`/clinic/charts/p2`} className="bg-white/20 hover:bg-white/30 text-white text-sm font-bold py-2 px-3 rounded-xl transition-colors">Chart</Link>
             </div>
           </div>
         </div>
@@ -114,7 +113,7 @@ export default function DentistDashboard() {
                 <p className="text-xs text-gray-400">{a.serviceName}</p>
               </div>
               <AppointmentBadge status={a.status} />
-              <Link href={`/clinic/patients/${a.patientId}`} className="text-orange-500 text-xs font-semibold hover:underline flex-shrink-0">Chart</Link>
+              <Link href={`/clinic/patients/${a.patientId}`} className="text-orange-500 text-xs font-semibold hover:underline flex-shrink-0">Patient</Link>
             </div>
           ))}
         </div>

@@ -11,7 +11,6 @@ const roleColors: Record<string, string> = {
   ADMIN:             'bg-purple-600',
   RECEPTIONIST:      'bg-teal-600',
   DENTIST:           'bg-indigo-600',
-  CASHIER:           'bg-amber-600',
   INVENTORY_MANAGER: 'bg-orange-600',
   PATIENT:           'bg-violet-600',
 };
@@ -20,7 +19,6 @@ const roleBg: Record<string, string> = {
   ADMIN:             'bg-purple-50 border-purple-200',
   RECEPTIONIST:      'bg-teal-50 border-teal-200',
   DENTIST:           'bg-indigo-50 border-indigo-200',
-  CASHIER:           'bg-amber-50 border-amber-200',
   INVENTORY_MANAGER: 'bg-orange-50 border-orange-200',
   PATIENT:           'bg-violet-50 border-violet-200',
 };
@@ -29,7 +27,6 @@ const roleLabels: Record<string, string> = {
   ADMIN:             'Admin',
   RECEPTIONIST:      'Receptionist',
   DENTIST:           'Dentist',
-  CASHIER:           'Cashier',
   INVENTORY_MANAGER: 'Inventory Mgr',
   PATIENT:           'Patient',
 };
@@ -39,7 +36,6 @@ const roleDestinations: Record<string, string> = {
   ADMIN:             '/clinic/dashboard',
   RECEPTIONIST:      '/clinic/dashboard',
   DENTIST:           '/clinic/dashboard',
-  CASHIER:           '/clinic/dashboard',
   INVENTORY_MANAGER: '/clinic/dashboard',
   PATIENT:           '/portal/dashboard',
 };

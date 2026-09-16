@@ -1,11 +1,11 @@
 ﻿'use client';
 
 import { useAppointments } from '../../../lib/appointments-store';
-import { patients } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { AppointmentBadge } from '../../../components/ui/badge';
 import { FileText } from 'lucide-react';
+import Link from 'next/link';
 
 export default function RecordsPage() {
   const { appointments } = useAppointments();
@@ -18,7 +18,7 @@ export default function RecordsPage() {
           <h1 className="text-2xl font-bold text-slate-800">Medical Records</h1>
           <p className="text-slate-500 text-sm mt-1">{completedAppts.length} completed visits</p>
         </div>
-        <Button variant="primary"><FileText size={16} /> New Record</Button>
+        <Link href="/clinic/patients"><Button variant="primary"><FileText size={16} /> New Record</Button></Link>
       </div>
 
       <Card padding={false}>

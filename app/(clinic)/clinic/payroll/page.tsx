@@ -37,7 +37,7 @@ export default function PayrollPage() {
           <button onClick={() => downloadExcel('payroll-report.xlsx', 'Payroll', payrollHeaders, payrollRows)} className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-3 py-2.5 rounded-xl transition-colors">
             <Download size={15} /> Excel
           </button>
-          <Link href="/clinic/payroll/preview" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+          <Link href="/clinic/payroll" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
             <Banknote size={15} /> Run Payroll
           </Link>
         </div>

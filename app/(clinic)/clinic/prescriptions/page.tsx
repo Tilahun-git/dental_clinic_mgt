@@ -28,7 +28,7 @@ export default function PrescriptionsPage() {
                 <p className="text-slate-500 text-xs">{rx.dentistName}</p>
                 <p className="text-slate-400 text-xs">{rx.date}</p>
               </div>
-              <Button variant="outline" size="sm">Print</Button>
+              <Button variant="outline" size="sm" onClick={() => window.print()}>Print</Button>
             </div>
 
             <div className="space-y-2">

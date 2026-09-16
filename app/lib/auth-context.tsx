@@ -23,7 +23,7 @@ interface AuthContextType {
   isLoading: boolean;
 }
 
-export const clinicRoles: Role[] = ['ADMIN', 'RECEPTIONIST', 'DENTIST', 'CASHIER', 'INVENTORY_MANAGER'];
+export const clinicRoles: Role[] = ['ADMIN', 'RECEPTIONIST', 'DENTIST', 'INVENTORY_MANAGER'];
 
 export function getRoleHome(role: Role) {
   return role === 'PATIENT' ? '/portal/dashboard' : '/clinic/dashboard';

@@ -10,7 +10,7 @@ import { Suspense, useState } from 'react';
 
 const roleLabel: Record<string, string> = {
   ADMIN: 'Admin', RECEPTIONIST: 'Receptionist', DENTIST: 'Dentist',
-  CASHIER: 'Cashier', INVENTORY_MANAGER: 'Inventory', PATIENT: 'Patient',
+  INVENTORY_MANAGER: 'Inventory', PATIENT: 'Patient',
 };
 
 function LoginPageContent() {

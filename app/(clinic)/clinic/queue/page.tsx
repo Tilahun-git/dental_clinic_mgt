@@ -6,6 +6,7 @@ import { waitingQueue } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Clock, Phone, ArrowRight, Users, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function QueuePage() {
   const { user } = useAuth();
@@ -140,7 +141,9 @@ export default function QueuePage() {
                   <CheckCircle size={14} /> Complete
                 </Button>
               )}
-              <Button variant="ghost" size="sm">Details</Button>
+              <Link href={`/clinic/patients/${patient.patientId}`}>
+                <Button variant="ghost" size="sm">Details</Button>
+              </Link>
             </div>
           </div>
         ))}

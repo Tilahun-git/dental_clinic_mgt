@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/app/lib/utils';
 import { useAuth } from '@/app/lib/auth-context';
 import {
-  LayoutDashboard, Users, Calendar, Clock, FileText, Activity,
+  LayoutDashboard, Users, Calendar, Clock, FileText,
   Clipboard, Pill, Receipt, CreditCard, WalletCards, Package, UserCheck,
   BarChart3, Shield, Stethoscope, LogOut, ChevronLeft, ChevronRight
 } from 'lucide-react';
@@ -13,17 +13,16 @@ import { useState } from 'react';
 import type { Role } from '@/app/lib/mock-data';
 
 const navItems = [
-  { href: '/clinic/dashboard',     label: 'Dashboard',      icon: LayoutDashboard, roles: ['ADMIN','RECEPTIONIST','DENTIST','CASHIER','INVENTORY_MANAGER'] as Role[] },
+  { href: '/clinic/dashboard',     label: 'Dashboard',      icon: LayoutDashboard, roles: ['ADMIN','RECEPTIONIST','DENTIST','INVENTORY_MANAGER'] as Role[] },
   { href: '/clinic/patients',      label: 'Patients',       icon: Users,           roles: ['ADMIN','RECEPTIONIST','DENTIST'] as Role[] },
   { href: '/clinic/appointments',  label: 'Appointments',   icon: Calendar,        roles: ['ADMIN','RECEPTIONIST','DENTIST'] as Role[] },
   { href: '/clinic/queue',         label: 'Queue',          icon: Clock,           roles: ['ADMIN','RECEPTIONIST','DENTIST'] as Role[], badge: '5' },
   { href: '/clinic/records',       label: 'Records',        icon: FileText,        roles: ['ADMIN','DENTIST'] as Role[] },
-  { href: '/clinic/charts',        label: 'Dental Charts',  icon: Activity,        roles: ['ADMIN','DENTIST'] as Role[] },
   { href: '/clinic/treatments',    label: 'Treatments',     icon: Clipboard,       roles: ['ADMIN','DENTIST'] as Role[] },
   { href: '/clinic/prescriptions', label: 'Prescriptions',  icon: Pill,            roles: ['ADMIN','DENTIST'] as Role[] },
-  { href: '/clinic/billing',       label: 'Billing',        icon: Receipt,         roles: ['ADMIN','CASHIER','RECEPTIONIST'] as Role[] },
-  { href: '/clinic/payroll',       label: 'Payroll',        icon: WalletCards,     roles: ['ADMIN','CASHIER'] as Role[] },
-  { href: '/clinic/payments',      label: 'Payments',       icon: CreditCard,      roles: ['ADMIN','CASHIER'] as Role[] },
+  { href: '/clinic/billing',       label: 'Billing',        icon: Receipt,         roles: ['ADMIN','RECEPTIONIST'] as Role[] },
+  { href: '/clinic/payroll',       label: 'Payroll',        icon: WalletCards,     roles: ['ADMIN'] as Role[] },
+  { href: '/clinic/payments',      label: 'Payments',       icon: CreditCard,      roles: ['ADMIN','RECEPTIONIST'] as Role[] },
   { href: '/clinic/inventory',     label: 'Inventory',      icon: Package,         roles: ['ADMIN','INVENTORY_MANAGER'] as Role[], badge: '3' },
   { href: '/clinic/staff',         label: 'Staff',          icon: UserCheck,       roles: ['ADMIN'] as Role[] },
   { href: '/clinic/services',      label: 'Services',       icon: Stethoscope,     roles: ['ADMIN'] as Role[] },

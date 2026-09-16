@@ -66,7 +66,6 @@ export function RoleBadge({ role }: { role: string }) {
     ADMIN: { label: 'Admin', variant: 'purple' },
     DENTIST: { label: 'Dentist', variant: 'info' },
     RECEPTIONIST: { label: 'Receptionist', variant: 'success' },
-    CASHIER: { label: 'Cashier', variant: 'warning' },
     INVENTORY_MANAGER: { label: 'Inventory', variant: 'orange' },
     PATIENT: { label: 'Patient', variant: 'gray' },
   };

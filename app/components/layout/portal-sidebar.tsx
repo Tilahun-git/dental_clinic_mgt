@@ -4,13 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/app/lib/utils';
 import { useAuth } from '@/app/lib/auth-context';
-import { LayoutDashboard, Calendar, FileText, Activity, Clipboard, Pill, Receipt, Stethoscope, LogOut } from 'lucide-react';
+import { LayoutDashboard, Calendar, FileText, Clipboard, Pill, Receipt, Stethoscope, LogOut } from 'lucide-react';
 
 const navItems = [
   { href: '/portal/dashboard',     label: 'Dashboard',       icon: LayoutDashboard },
   { href: '/portal/appointments',  label: 'My Appointments', icon: Calendar },
   { href: '/portal/records',       label: 'My Records',      icon: FileText },
-  { href: '/portal/chart',         label: 'Dental Chart',    icon: Activity },
   { href: '/portal/treatments',    label: 'Treatments',      icon: Clipboard },
   { href: '/portal/prescriptions', label: 'Prescriptions',   icon: Pill },
   { href: '/portal/invoices',      label: 'My Invoices',     icon: Receipt },
