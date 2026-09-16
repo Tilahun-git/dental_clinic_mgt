@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </TreatmentsProvider>
             </AppointmentsProvider>
           </AuthProvider>
-        </PrimeReactProvider>
+        </PrimeReactProvider> 
       </body>
     </html>
   );

@@ -481,12 +481,17 @@ export const dentalChartP1: Record<number, { condition: ToothCondition; notes: s
 // ==================== DEMO USERS ====================
 
 export const demoUsers = [
-  { id: 'u1', name: 'Admin User', email: 'admin@smilecare.et', role: 'ADMIN' as Role, staffId: 'st8' },
-  { id: 'u2', name: 'Sara Mengistu', email: 'sara@smilecare.et', role: 'RECEPTIONIST' as Role, staffId: 'st5' },
-  { id: 'u3', name: 'Dr. Yohannes Tesfaye', email: 'dr.yohannes@smilecare.et', role: 'DENTIST' as Role, staffId: 'st1' },
-  { id: 'u4', name: 'Tadesse Worku', email: 'tadesse@smilecare.et', role: 'CASHIER' as Role, staffId: 'st6' },
-  { id: 'u5', name: 'Liya Ayalew', email: 'liya@smilecare.et', role: 'INVENTORY_MANAGER' as Role, staffId: 'st7' },
-  { id: 'u6', name: 'Abebe Kebede', email: 'abebe.kebede@email.com', role: 'PATIENT' as Role, patientId: 'p1' },
+  { id: 'u1', name: 'Admin User', email: 'admin@smilecare.et', password: 'Admin123!', role: 'ADMIN' as Role, staffId: 'st8' },
+  { id: 'u2', name: 'Sara Mengistu', email: 'sara@smilecare.et', password: 'Sara123!', role: 'RECEPTIONIST' as Role, staffId: 'st5' },
+  { id: 'u3', name: 'Dr. Yohannes Tesfaye', email: 'dr.yohannes@smilecare.et', password: 'Yohannes123!', role: 'DENTIST' as Role, staffId: 'st1' },
+  { id: 'u4', name: 'Tadesse Worku', email: 'tadesse@smilecare.et', password: 'Tadesse123!', role: 'CASHIER' as Role, staffId: 'st6' },
+  { id: 'u5', name: 'Liya Ayalew', email: 'liya@smilecare.et', password: 'Liya123!', role: 'INVENTORY_MANAGER' as Role, staffId: 'st7' },
+  { id: 'u6', name: 'Abebe Kebede', email: 'abebe.kebede@email.com', password: 'Abebe123!', role: 'PATIENT' as Role, patientId: 'p1' },
+  { id: 'u7', name: 'Dr. Marta Bekele', email: 'dr.marta@smilecare.et', password: 'Marta123!', role: 'DENTIST' as Role, staffId: 'st2' },
+  { id: 'u8', name: 'Dr. Dawit Girma', email: 'dr.dawit@smilecare.et', password: 'Dawit123!', role: 'DENTIST' as Role, staffId: 'st3' },
+  { id: 'u9', name: 'Hana Tesfaye', email: 'hana.reception@smilecare.et', password: 'Hana123!', role: 'RECEPTIONIST' as Role, staffId: 'st5' },
+  { id: 'u10', name: 'Selamawit Alemu', email: 'selam.alemu@email.com', password: 'Selam123!', role: 'PATIENT' as Role, patientId: 'p2' },
+  { id: 'u11', name: 'Girma Tadesse', email: 'girma.tadesse@email.com', password: 'Girma123!', role: 'PATIENT' as Role, patientId: 'p3' },
 ];
 
 // ==================== MEDICAL RECORDS ====================

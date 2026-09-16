@@ -9,32 +9,31 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-sky-600 via-sky-500 to-cyan-400 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImEiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+PHBhdGggZD0iTTAgMTBoNjBNMTAgMHY2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjAuMiIgZmlsbD0ibm9uZSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNhKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==')] opacity-20" />
+      <section className="relative bg-[#eef3ef] text-[#17231d] overflow-hidden border-b border-[#d8e4dc]">
+        <div className="absolute right-0 top-0 h-full w-2/5 bg-[#dce9df] opacity-70" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-medium mb-6">
-              <Star size={14} className="text-yellow-300" />
-              <span>Rated #1 Dental Clinic in Addis Ababa</span>
+            <div className="inline-flex items-center gap-2 text-[#176b49] text-sm font-bold uppercase tracking-[0.18em] mb-6">
+              <span className="h-px w-8 bg-[#c28b32]" />
+              <span>Dental care, thoughtfully delivered</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4">
-              Your Smile,<br />
-              <span className="text-cyan-200">Our Priority</span>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-4 text-[#17231d]">
+              Trusted care,<br />
+              <span className="text-[#176b49]">made personal.</span>
             </h1>
-            <p className="text-xl text-sky-100 mb-8 leading-relaxed">
-              Experience world-class dental care with Ethiopia's most trusted dental clinic. 
-              Advanced technology, compassionate team, beautiful results.
+            <p className="text-xl text-[#64736a] mb-8 leading-relaxed max-w-xl">
+              Modern dentistry in Addis Ababa, with a calm experience and a team that takes time to understand your needs.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/booking"
-                className="inline-flex items-center gap-2 bg-white text-sky-600 hover:bg-sky-50 px-6 py-3 rounded-xl font-bold text-base shadow-lg transition-colors"
+                className="inline-flex items-center gap-2 bg-[#176b49] text-white hover:bg-[#12583c] px-6 py-3 rounded-xl font-bold text-base shadow-lg transition-colors"
               >
                 Book Appointment <ChevronRight size={18} />
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center gap-2 bg-sky-700/50 hover:bg-sky-700/70 text-white px-6 py-3 rounded-xl font-bold text-base transition-colors"
+                className="inline-flex items-center gap-2 border border-[#b9cfc0] hover:bg-white text-[#176b49] px-6 py-3 rounded-xl font-bold text-base transition-colors"
               >
                 View Services
               </Link>
@@ -44,7 +43,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats bar */}
-      <section className="bg-slate-800 text-white">
+      <section className="bg-[#17231d] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
@@ -54,8 +53,8 @@ export default function HomePage() {
               { value: '98%', label: 'Satisfaction Rate' },
             ].map((stat) => (
               <div key={stat.label}>
-                <p className="text-3xl font-extrabold text-sky-400">{stat.value}</p>
-                <p className="text-slate-400 text-sm mt-1">{stat.label}</p>
+                <p className="text-3xl font-extrabold text-[#d7b36a]">{stat.value}</p>
+                <p className="text-[#aebdb3] text-sm mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -65,18 +64,18 @@ export default function HomePage() {
       {/* Services preview */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-slate-800">Our Services</h2>
-          <p className="text-slate-500 mt-2">Comprehensive dental care for every need</p>
+          <h2 className="text-3xl font-bold text-[#17231d]">Our Services</h2>
+          <p className="text-[#64736a] mt-2">Focused care for every stage of your dental health</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {previewServices.map((service) => (
-            <div key={service.id} className="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-lg transition-shadow group">
-              <div className="text-4xl mb-3">{service.icon}</div>
-              <h3 className="font-semibold text-slate-800 text-lg">{service.name}</h3>
-              <p className="text-slate-500 text-sm mt-1 mb-4">{service.description}</p>
+            <div key={service.id} className="bg-[#fbfcfa] rounded-2xl border border-[#d8e4dc] p-6 hover:shadow-lg transition-shadow group">
+              <div className="text-4xl mb-3 grayscale">{service.icon}</div>
+              <h3 className="font-semibold text-[#17231d] text-lg">{service.name}</h3>
+              <p className="text-[#64736a] text-sm mt-1 mb-4">{service.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-sky-600 font-bold">from {service.price.toLocaleString()} ETB</span>
-                <span className="text-slate-400 text-xs">{service.duration} min</span>
+                <span className="text-[#176b49] font-bold">from {service.price.toLocaleString()} ETB</span>
+                <span className="text-[#87968d] text-xs">{service.duration} min</span>
               </div>
             </div>
           ))}
@@ -84,7 +83,7 @@ export default function HomePage() {
         <div className="text-center mt-8">
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-sky-600 font-semibold hover:text-sky-700"
+            className="inline-flex items-center gap-2 text-[#176b49] font-semibold hover:text-[#12583c]"
           >
             View All Services <ChevronRight size={16} />
           </Link>
@@ -161,7 +160,7 @@ export default function HomePage() {
                     <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4">"{testimonial.text}"</p>
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">&quot;{testimonial.text}&quot;</p>
                 <p className="font-semibold text-slate-800">— {testimonial.name}</p>
               </div>
             ))}

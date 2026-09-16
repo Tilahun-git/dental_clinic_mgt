@@ -129,7 +129,7 @@ export default function DentalChartPage() {
                       <button key={c} onClick={() => setEditCondition(c)}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-left transition-all border
                           ${editCondition === c ? conditionStyle[c].bg + ' border-current' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
-                        <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${conditionStyle[c].dot}`} />
+                        <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${conditionStyle[c].dot}`} />
                         {conditionStyle[c].label}
                       </button>
                     ))}

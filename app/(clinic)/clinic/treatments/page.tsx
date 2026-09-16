@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../../lib/auth-context';
 import { useTreatments, type NewPlanInput, type TreatmentItem } from '../../../lib/treatments-store';
-import { patients } from '../../../lib/mock-data';
-import { Badge } from '../../../components/ui/badge';
+import { patients, type TreatmentStatus } from '../../../lib/mock-data';
 import { Clipboard, Plus, X, ChevronDown, ChevronUp, Check } from 'lucide-react';
 
 const STATUS_COLORS: Record<string, string> = {
@@ -39,6 +38,7 @@ export default function TreatmentsPage() {
 
   const selectedPatient = patients.find(p => p.id === patientId);
   const total = items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
+  const canCreatePlan = user?.role === 'DENTIST';
 
   const handleSubmit = () => {
     if (!patientId || !diagnosis || items.some(i => !i.service)) return;
@@ -81,14 +81,21 @@ export default function TreatmentsPage() {
           <h1 className="text-2xl font-black text-stone-900">Treatment Plans</h1>
           <p className="text-stone-400 text-sm mt-0.5">{plans.length} plans on record</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)}
+        <button onClick={() => setShowForm(!showForm)} disabled={!canCreatePlan}
+          title={canCreatePlan ? 'Create a treatment plan for a patient' : 'Only dentists can create treatment plans'}
           className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2.5 rounded-2xl transition-colors shadow-sm">
           <Clipboard size={16} /> New Treatment Plan
         </button>
       </div>
 
       {/* New Plan Form */}
-      {showForm && (
+      {!canCreatePlan && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 mb-6 text-sm text-amber-800">
+          Treatment plans are created by the assigned dentist. Sign in as a dentist to create a plan for a selected patient.
+        </div>
+      )}
+
+      {showForm && canCreatePlan && (
         <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm" style={{ border: '1px solid #E8E0D8' }}>
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-lg font-bold text-stone-800">Create New Treatment Plan</h2>
@@ -197,7 +204,7 @@ export default function TreatmentsPage() {
                   <p className="text-stone-600 text-sm mt-1">{plan.diagnosis}</p>
                   <p className="text-stone-400 text-xs mt-0.5">{plan.dentistName} · {plan.createdAt}</p>
                 </div>
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <span className="font-black text-teal-700 text-sm">{plan.totalCost.toLocaleString()} ETB</span>
                   <button onClick={() => setExpandedPlan(expandedPlan === plan.id ? null : plan.id)}
                     className="p-1.5 hover:bg-stone-100 rounded-xl transition-colors">
@@ -272,7 +279,7 @@ export default function TreatmentsPage() {
                   <div className="flex justify-between items-center mt-4 pt-3" style={{ borderTop: '1px solid #E8E0D8' }}>
                     <div className="flex items-center gap-2">
                       <label className="text-xs font-bold text-stone-500">Plan Status:</label>
-                      <select value={plan.status} onChange={e => updateStatus(plan.id, e.target.value as any)}
+                      <select value={plan.status} onChange={e => updateStatus(plan.id, e.target.value as TreatmentStatus)}
                         className="text-xs font-bold border border-stone-200 rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-teal-400 bg-white">
                         <option value="PLANNED">PLANNED</option>
                         <option value="IN_PROGRESS">IN PROGRESS</option>

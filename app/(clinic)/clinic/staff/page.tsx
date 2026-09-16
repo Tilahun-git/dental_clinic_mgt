@@ -30,7 +30,7 @@ export default function StaffPage() {
                 <tr key={member.id} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-9 h-9 bg-sky-100 rounded-full flex items-center justify-center text-sky-600 text-xs font-bold flex-shrink-0">
+                      <div className="w-9 h-9 bg-sky-100 rounded-full flex items-center justify-center text-sky-600 text-xs font-bold shrink-0">
                         {member.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
                       </div>
                       <div>

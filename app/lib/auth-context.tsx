@@ -12,9 +12,12 @@ interface User {
   patientId?: string;
 }
 
+export type LoginResult = 'success' | 'invalid-credentials';
+
 interface AuthContextType {
   user: User | null;
   login: (userId: string) => void;
+  loginWithCredentials: (email: string, password: string) => LoginResult;
   logout: () => void;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -29,6 +32,7 @@ export function getRoleHome(role: Role) {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   login: () => {},
+  loginWithCredentials: () => 'invalid-credentials',
   logout: () => {},
   isAuthenticated: false,
   isLoading: true,
@@ -45,6 +49,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsed = JSON.parse(stored) as User;
         const validUser = demoUsers.find(candidate => candidate.id === parsed.id);
         if (validUser && validUser.role === parsed.role) {
+          // The stored session is restored after the browser-only auth check.
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setUser(validUser);
         } else {
           localStorage.removeItem('dcms_user');
@@ -65,13 +71,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const loginWithCredentials = (email: string, password: string): LoginResult => {
+    const found = demoUsers.find(candidate =>
+      candidate.email.toLowerCase() === email.trim().toLowerCase() && candidate.password === password
+    );
+    if (!found) return 'invalid-credentials';
+    setUser(found);
+    localStorage.setItem('dcms_user', JSON.stringify(found));
+    return 'success';
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem('dcms_user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, isLoading }}>
+    <AuthContext.Provider value={{ user, login, loginWithCredentials, logout, isAuthenticated: !!user, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

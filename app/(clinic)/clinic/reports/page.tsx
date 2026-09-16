@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useAppointments } from '../../../lib/appointments-store';
 import { patients, invoices, inventory, payrollRecords } from '../../../lib/mock-data';
 import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
+import { Download } from 'lucide-react';
+import { downloadCsv } from '../../../lib/document-utils';
 
 const tabs = ['Patient Reports', 'Appointment Reports', 'Financial Reports', 'Inventory Reports'];
 
@@ -43,9 +45,41 @@ export default function ReportsPage() {
     value: inventory.filter(i => i.category === cat).reduce((s, i) => s + i.quantity, 0),
   }));
 
+  const exportReport = () => {
+    if (tab === 'Patient Reports') {
+      downloadCsv('patient-report.csv', ['Metric', 'Value'], [
+        ['Total Registered Patients', patients.length],
+        ['Active Patients', patients.filter(p => p.status === 'Active').length],
+        ['Inactive Patients', patients.filter(p => p.status === 'Inactive').length],
+        ['Male Patients', patients.filter(p => p.gender === 'Male').length],
+        ['Female Patients', patients.filter(p => p.gender === 'Female').length],
+      ]);
+      return;
+    }
+    if (tab === 'Appointment Reports') {
+      downloadCsv('appointment-report.csv', ['Status', 'Count'], statusCounts.map(item => [item.label, item.value]));
+      return;
+    }
+    if (tab === 'Financial Reports') {
+      downloadCsv('financial-report.csv', ['Metric', 'Amount (ETB)'], [
+        ['Total Billed', invoices.reduce((s, i) => s + i.total, 0)],
+        ['Collected', totalRevenue],
+        ['Outstanding', invoices.reduce((s, i) => s + i.balance, 0)],
+        ['Payroll Cost', totalPayroll],
+      ]);
+      return;
+    }
+    downloadCsv('inventory-report.csv', ['Category', 'Quantity'], categoryStock.map(item => [item.label, item.value]));
+  };
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-800 mb-6">Reports</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-slate-800">Reports</h1>
+        <button onClick={exportReport} className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors">
+          <Download size={15} /> Export CSV
+        </button>
+      </div>
 
       <div className="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">
         {tabs.map(t => (

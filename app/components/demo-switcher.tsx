@@ -63,7 +63,7 @@ export function DemoSwitcher() {
         <div className="mb-3 bg-white rounded-2xl shadow-2xl border border-gray-200 w-76 overflow-hidden"
           style={{ width: '300px' }}>
           {/* Header */}
-          <div className="bg-gray-900 px-4 py-3 flex items-center justify-between">
+          <div className="bg-slate-700 px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Zap size={16} className="text-yellow-400" />
               <span className="text-white text-sm font-bold">Demo Role Switcher</span>

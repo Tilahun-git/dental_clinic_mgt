@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { services, dentists } from '../../lib/mock-data';
 import { useAuth } from '../../lib/auth-context';
@@ -15,7 +15,7 @@ const timeSlots = [
 ];
 const steps = ['Service','Dentist','Date & Time','Confirm'];
 
-export default function BookingPage() {
+function BookingPageContent() {
   const { user, isAuthenticated, isLoading } = useAuth();
   const { bookAppointment } = useAppointments();
   const searchParams = useSearchParams();
@@ -196,7 +196,7 @@ export default function BookingPage() {
                     <p className="font-semibold text-stone-800 text-sm">{svc.name}</p>
                     <p className="text-stone-400 text-xs mt-0.5">{svc.duration} min · {svc.price.toLocaleString()} ETB</p>
                   </div>
-                  {serviceId === svc.id && <CheckCircle size={16} className="text-teal-500 flex-shrink-0 mt-0.5" />}
+                  {serviceId === svc.id && <CheckCircle size={16} className="text-teal-500 shrink-0 mt-0.5" />}
                 </button>
               ))}
             </div>
@@ -212,7 +212,7 @@ export default function BookingPage() {
                 <button key={doc.id} onClick={() => setDentistId(doc.id)}
                   className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all ${
                     dentistId === doc.id ? 'border-teal-500 bg-teal-50' : 'border-stone-200 hover:border-teal-200'}`}>
-                  <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                  <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold shrink-0">
                     {doc.avatar}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -220,7 +220,7 @@ export default function BookingPage() {
                     <p className="text-teal-600 text-sm">{doc.specialization}</p>
                     <p className="text-stone-400 text-xs">{doc.experience} years experience</p>
                   </div>
-                  {dentistId === doc.id && <CheckCircle size={18} className="text-teal-500 flex-shrink-0" />}
+                  {dentistId === doc.id && <CheckCircle size={18} className="text-teal-500 shrink-0" />}
                 </button>
               ))}
             </div>
@@ -305,5 +305,13 @@ export default function BookingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-20 text-sm text-stone-500">Loading booking...</div>}>
+      <BookingPageContent />
+    </Suspense>
   );
 }

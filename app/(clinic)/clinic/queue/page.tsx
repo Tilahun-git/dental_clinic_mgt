@@ -1,13 +1,18 @@
 ﻿'use client';
 
 import { useState } from 'react';
+import { useAuth } from '../../../lib/auth-context';
 import { waitingQueue } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Button } from '../../../components/ui/button';
 import { Clock, Phone, ArrowRight, Users, CheckCircle } from 'lucide-react';
 
 export default function QueuePage() {
+  const { user } = useAuth();
   const [queue, setQueue] = useState(waitingQueue);
+  const visibleQueue = user?.role === 'DENTIST'
+    ? queue.filter(patient => patient.dentistName === user.name)
+    : queue;
 
   const callPatient = (id: string) => {
     setQueue((prev) => prev.map((q) => q.id === id ? { ...q, status: 'CALLED' } : q));
@@ -22,31 +27,33 @@ export default function QueuePage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-800">Waiting Queue</h1>
-          <p className="text-slate-500 text-sm mt-1">Monday, July 14, 2025 â€” Real-time view</p>
+          <p className="text-slate-500 text-sm mt-1">
+            {user?.role === 'DENTIST' ? `Your assigned patients · Monday, July 14, 2025` : 'Clinic waiting room · Monday, July 14, 2025'}
+          </p>
         </div>
         <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl border border-emerald-200">
           <Users size={16} />
-          <span className="font-semibold text-sm">{queue.length} in queue</span>
+          <span className="font-semibold text-sm">{visibleQueue.length} in queue</span>
         </div>
       </div>
 
       {/* Summary bar */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         <Card className="text-center">
-          <p className="text-3xl font-bold text-slate-800">{queue.length}</p>
+          <p className="text-3xl font-bold text-slate-800">{visibleQueue.length}</p>
           <p className="text-sm text-slate-500 mt-1">Waiting</p>
         </Card>
         <Card className="text-center">
-          <p className="text-3xl font-bold text-orange-500">{queue.filter(q => q.status === 'IN_PROGRESS').length}</p>
+          <p className="text-3xl font-bold text-orange-500">{visibleQueue.filter(q => q.status === 'IN_PROGRESS').length}</p>
           <p className="text-sm text-slate-500 mt-1">In Progress</p>
         </Card>
         <Card className="text-center">
-          <p className="text-3xl font-bold text-sky-500">{Math.round(queue.reduce((s, q) => s + q.waitMinutes, 0) / queue.length) || 0}</p>
+          <p className="text-3xl font-bold text-sky-500">{Math.round(visibleQueue.reduce((s, q) => s + q.waitMinutes, 0) / visibleQueue.length) || 0}</p>
           <p className="text-sm text-slate-500 mt-1">Avg Wait (min)</p>
         </Card>
       </div>
 
-      {queue.length === 0 && (
+      {visibleQueue.length === 0 && (
         <Card>
           <div className="text-center py-12">
             <CheckCircle size={48} className="text-emerald-400 mx-auto mb-3" />
@@ -57,7 +64,7 @@ export default function QueuePage() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {queue.map((patient, idx) => (
+        {visibleQueue.map((patient, idx) => (
           <div
             key={patient.id}
             className={`bg-white rounded-2xl border-2 p-5 shadow-sm transition-all ${

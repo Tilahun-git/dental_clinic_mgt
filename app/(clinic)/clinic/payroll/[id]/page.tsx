@@ -2,10 +2,11 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { payrollRecords } from '../../../lib/mock-data';
-import { Badge } from '../../../components/ui/badge';
-import { Card } from '../../../components/ui/card';
+import { payrollRecords } from '../../../../lib/mock-data';
+import { Badge } from '../../../../components/ui/badge';
+import { Card } from '../../../../components/ui/card';
 import { ArrowLeft, Download, CreditCard } from 'lucide-react';
+import { printPayslip } from '../../../../lib/document-utils';
 
 const statusMap: Record<string, { label: string; variant: 'success' | 'warning' | 'danger' | 'info' | 'default' }> = {
   DRAFT: { label: 'Draft', variant: 'default' },
@@ -41,8 +42,8 @@ export default function PayrollDetailPage() {
           </div>
         </div>
         <div className="flex gap-2">
-          <button className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-xl text-sm font-semibold">
-            <Download size={14} /> PDF
+          <button onClick={() => printPayslip(payroll)} className="inline-flex items-center gap-2 bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-xl text-sm font-semibold">
+            <Download size={14} /> Generate Payslip
           </button>
           <button className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-xl text-sm font-semibold">
             <CreditCard size={14} /> Approve

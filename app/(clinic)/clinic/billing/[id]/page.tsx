@@ -7,6 +7,7 @@ import { Button } from '../../../../components/ui/button';
 import { Card } from '../../../../components/ui/card';
 import { ArrowLeft, Printer, CreditCard } from 'lucide-react';
 import Link from 'next/link';
+import { printInvoice } from '../../../../lib/document-utils';
 
 export default function InvoiceDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -37,7 +38,7 @@ export default function InvoiceDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="sm"><Printer size={14} /> Print</Button>
+          <Button variant="secondary" size="sm" onClick={() => printInvoice(invoice)}><Printer size={14} /> Generate Invoice</Button>
           {invoice.status !== 'PAID' && invoice.status !== 'CANCELLED' && (
             <Button variant="primary" size="sm"><CreditCard size={14} /> Record Payment</Button>
           )}

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '../../../lib/auth-context';
 import { useAppointments } from '../../../lib/appointments-store';
 import type { LifecycleStatus } from '../../../lib/appointments-store';
-import { CheckCircle, X, UserCheck, Play, Flag, AlertTriangle, ChevronDown } from 'lucide-react';
+import { CheckCircle, X, UserCheck, Play, Flag, AlertTriangle } from 'lucide-react';
 
 // Status badge config
 const STATUS: Record<LifecycleStatus, { label: string; bg: string; text: string }> = {
@@ -48,9 +48,8 @@ export default function AppointmentsPage() {
   };
 
   const filtered = appointments.filter(a => {
-    const isDentist = role === 'DENTIST';
     const canSeeAppointment = role !== 'DENTIST'
-      || ((a.dentistId === user?.id || a.dentistName === user?.name) && a.status !== 'REQUESTED');
+      || a.dentistName === user?.name;
     const matchSearch = `${a.patientName} ${a.dentistName} ${a.serviceName} ${a.date} ${a.appointmentNumber}`
       .toLowerCase().includes(search.toLowerCase());
     const matchStatus = filter === 'ALL' || a.status === filter;
@@ -59,7 +58,9 @@ export default function AppointmentsPage() {
 
   // Count by status
   const counts = ALL_STATUSES.reduce((acc, s) => {
-    acc[s] = appointments.filter(a => a.status === s).length;
+    acc[s] = appointments.filter(a =>
+      a.status === s && (role !== 'DENTIST' || a.dentistName === user?.name)
+    ).length;
     return acc;
   }, {} as Record<LifecycleStatus, number>);
 

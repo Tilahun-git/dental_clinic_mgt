@@ -39,7 +39,7 @@ export function ClinicSidebar() {
   const visible = navItems.filter(i => !role || i.roles.includes(role));
 
   return (
-    <div className={cn('flex flex-col h-full bg-[#111A16] text-white flex-shrink-0 transition-all duration-200', collapsed ? 'w-[68px]' : 'w-60')}>
+    <div className={cn('flex flex-col h-full bg-slate-700 text-white flex-shrink-0 transition-all duration-200', collapsed ? 'w-[68px]' : 'w-60')}>
       {/* Logo */}
       <div className="flex items-center h-16 px-4 border-b border-white/10">
         {!collapsed && (

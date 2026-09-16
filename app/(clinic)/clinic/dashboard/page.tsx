@@ -14,7 +14,6 @@ export default function DashboardPage() {
 
   switch (user.role) {
     case 'ADMIN':
-    case 'SYSTEM_ADMINISTRATOR':
       return <AdminDashboard />;
     case 'RECEPTIONIST':
       return <ReceptionistDashboard />;

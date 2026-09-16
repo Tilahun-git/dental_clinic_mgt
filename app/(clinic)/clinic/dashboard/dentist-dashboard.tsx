@@ -11,15 +11,18 @@ import { StatusDonut } from '../../../components/dashboard-charts';
 export default function DentistDashboard() {
   const { user } = useAuth();
   const { appointments } = useAppointments();
-  const todayAppts = appointments.filter(a =>
-    (a.dentistId === user?.id || a.dentistName === user?.name) &&
-    ['CONFIRMED', 'CHECKED_IN', 'IN_PROGRESS'].includes(a.status)
-  ).sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`));
-  const inProgress = waitingQueue.find(q => q.status === 'IN_PROGRESS');
-  const nextPatient = waitingQueue.find(q => q.status === 'WAITING' || q.status === 'JUST_ARRIVED');
-  const activeTreatments = treatmentPlans.filter(t => t.status === 'IN_PROGRESS');
-  const clinicalStatusValues = ['CONFIRMED', 'CHECKED_IN', 'IN_PROGRESS'].map(status =>
-    todayAppts.filter(a => a.status === status).length
+  const myAppointments = appointments
+    .filter(a => a.dentistName === user?.name)
+    .sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`));
+  const todayAppts = myAppointments.filter(a =>
+    ['REQUESTED', 'CONFIRMED', 'CHECKED_IN', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'NO_SHOW', 'REJECTED'].includes(a.status)
+  );
+  const myQueue = waitingQueue.filter(q => q.dentistName === user?.name);
+  const inProgress = myQueue.find(q => q.status === 'IN_PROGRESS');
+  const nextPatient = myQueue.find(q => q.status === 'WAITING' || q.status === 'JUST_ARRIVED');
+  const activeTreatments = treatmentPlans.filter(t => t.dentistName === user?.name && t.status === 'IN_PROGRESS');
+  const clinicalStatusValues = ['REQUESTED', 'CONFIRMED', 'CHECKED_IN', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED', 'NO_SHOW', 'REJECTED'].map(status =>
+    myAppointments.filter(a => a.status === status).length
   );
 
   return (
@@ -32,8 +35,8 @@ export default function DentistDashboard() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
-          { label: "Today's Patients", value: todayAppts.length, icon: Calendar, color: 'from-orange-500 to-orange-600' },
-          { label: 'In Queue', value: waitingQueue.filter(q => q.status === 'WAITING' || q.status === 'JUST_ARRIVED').length, icon: Clock, color: 'from-amber-500 to-amber-600' },
+          { label: "Your Appointments", value: todayAppts.length, icon: Calendar, color: 'from-orange-500 to-orange-600' },
+          { label: 'Your Queue', value: myQueue.filter(q => q.status === 'WAITING' || q.status === 'JUST_ARRIVED').length, icon: Clock, color: 'from-amber-500 to-amber-600' },
           { label: 'Active Treatments', value: activeTreatments.length, icon: Clipboard, color: 'from-indigo-500 to-indigo-600' },
         ].map(s => (
           <div key={s.label} className={`bg-gradient-to-br ${s.color} rounded-2xl p-5 text-white shadow-md`}>
@@ -93,7 +96,7 @@ export default function DentistDashboard() {
       <div className="bg-white rounded-2xl border border-emerald-100 shadow-sm p-5 mb-5">
         <h2 className="font-bold text-gray-800">Today&apos;s Clinical Flow</h2>
         <p className="text-xs text-gray-400 mt-1">Your appointments by treatment stage</p>
-        <StatusDonut labels={['Confirmed', 'Checked in', 'In progress']} values={clinicalStatusValues} colors={['#18794E', '#0EA5A4', '#F59E0B']} />
+        <StatusDonut labels={['Requested', 'Confirmed', 'Checked in', 'In progress', 'Completed', 'Cancelled', 'No show', 'Rejected']} values={clinicalStatusValues} colors={['#F59E0B', '#18794E', '#0EA5A4', '#F59E0B', '#94A3B8', '#EF4444', '#78716C', '#E11D48']} />
       </div>
 
       {/* Today's schedule */}

@@ -5,7 +5,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     <div className="min-h-screen flex flex-col bg-white">
       <PublicNavbar />
       <main className="flex-1">{children}</main>
-      <footer style={{ background: '#1C1412' }} className="text-white">
+      <footer className="bg-slate-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -41,7 +41,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               </ul>
             </div>
           </div>
-          <div className="mt-8 pt-6 text-center text-stone-600 text-sm" style={{ borderTop: '1px solid #2C2420' }}>
+          <div className="mt-8 pt-6 text-slate-300 text-sm border-t border-slate-600">
             <p>© 2025 SENAKO Dental Clinic. All rights reserved.</p>
           </div>
         </div>

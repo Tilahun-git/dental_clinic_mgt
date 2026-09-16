@@ -1,8 +1,9 @@
 'use client';
 
 import { useAuth } from '../../../lib/auth-context';
+import { useEffect, useState } from 'react';
 import { useAppointments } from '../../../lib/appointments-store';
-import { prescriptions, invoices, treatmentPlans, patients } from '../../../lib/mock-data';
+import { prescriptions, invoices, patients } from '../../../lib/mock-data';
 import { AppointmentBadge } from '../../../components/ui/badge';
 import { Calendar, DollarSign, Pill, ChevronRight, Bell } from 'lucide-react';
 import Link from 'next/link';
@@ -10,18 +11,24 @@ import Link from 'next/link';
 export default function PatientDashboard() {
   const { user } = useAuth();
   const { appointments } = useAppointments(); // ← shared store — reflects receptionist actions
+  const [now, setNow] = useState<number | null>(null);
   const patientId = user?.patientId ?? 'p1';
   const patient = patients.find(p => p.id === patientId);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setNow(Date.now()), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const myAppts = appointments.filter(a => a.patientId === patientId);
   const upcoming = myAppts.filter(a => ['CONFIRMED', 'REQUESTED', 'CHECKED_IN'].includes(a.status));
   const nextAppt = upcoming.sort((a, b) => a.date.localeCompare(b.date))[0];
 
   // Recently confirmed (confirmed in last 24h) — show notification
-  const recentlyConfirmed = myAppts.filter(a =>
+  const recentlyConfirmed = now === null ? [] : myAppts.filter(a =>
     a.status === 'CONFIRMED' &&
     (a as { confirmedAt?: string }).confirmedAt &&
-    Date.now() - new Date((a as { confirmedAt?: string }).confirmedAt!).getTime() < 24 * 60 * 60 * 1000
+    now - new Date((a as { confirmedAt?: string }).confirmedAt!).getTime() < 24 * 60 * 60 * 1000
   );
 
   const myRx = prescriptions.filter(r => r.patientId === patientId);
@@ -35,7 +42,7 @@ export default function PatientDashboard() {
         <div className="mb-5 space-y-2">
           {recentlyConfirmed.map(a => (
             <div key={a.id} className="flex items-start gap-3 bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-3.5">
-              <Bell size={18} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+              <Bell size={18} className="text-emerald-500 shrink-0 mt-0.5" />
               <div>
                 <p className="font-bold text-emerald-800 text-sm">Appointment Confirmed! 🎉</p>
                 <p className="text-emerald-600 text-xs mt-0.5">
@@ -48,7 +55,7 @@ export default function PatientDashboard() {
       )}
 
       {/* Welcome banner */}
-      <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white mb-6 shadow-lg">
+      <div className="bg-linear-to-r from-orange-500 to-orange-600 rounded-2xl p-6 text-white mb-6 shadow-lg">
         <p className="text-orange-100 text-sm">Welcome back 👋</p>
         <h1 className="text-2xl font-black mt-0.5">{patient?.firstName ?? user?.name?.split(' ')[0]}</h1>
         <p className="text-orange-100 text-sm mt-1">Here&apos;s your dental health overview at SENAKO</p>
@@ -116,7 +123,7 @@ export default function PatientDashboard() {
           <div>
             {myAppts.slice(0, 4).map(a => (
               <div key={a.id} className="flex items-center gap-3 px-4 py-3 hover:bg-stone-50 transition-colors" style={{ borderBottom: '1px solid #F5F0EB' }}>
-                <div className="text-center w-10 flex-shrink-0">
+                <div className="text-center w-10 shrink-0">
                   <p className="text-xs font-bold text-stone-600">{a.date.split('-')[2]}</p>
                   <p className="text-xs text-stone-400">{new Date(a.date).toLocaleString('en', { month: 'short' })}</p>
                 </div>

@@ -37,7 +37,7 @@ export default function MyAppointmentsPage() {
           <div className="space-y-3">
             {upcoming.map(appt => (
               <div key={appt.id} className="bg-white rounded-2xl p-4 shadow-sm flex items-start gap-4" style={{ border: '1px solid #E8E0D8' }}>
-                <div className="w-14 h-14 bg-orange-50 rounded-2xl flex flex-col items-center justify-center flex-shrink-0 text-orange-600" style={{ border: '1px solid #F5E6D8' }}>
+                <div className="w-14 h-14 bg-orange-50 rounded-2xl flex flex-col items-center justify-center shrink-0 text-orange-600" style={{ border: '1px solid #F5E6D8' }}>
                   <span className="text-lg font-black">{appt.date.split('-')[2]}</span>
                   <span className="text-xs opacity-70">{new Date(appt.date).toLocaleString('en', { month: 'short' })}</span>
                 </div>
@@ -75,7 +75,7 @@ export default function MyAppointmentsPage() {
           <div className="space-y-3">
             {past.map(appt => (
               <div key={appt.id} className="bg-white rounded-2xl p-4 shadow-sm flex items-start gap-4 opacity-75" style={{ border: '1px solid #E8E0D8' }}>
-                <div className="w-14 h-14 bg-stone-100 rounded-2xl flex flex-col items-center justify-center flex-shrink-0 text-stone-400">
+                <div className="w-14 h-14 bg-stone-100 rounded-2xl flex flex-col items-center justify-center shrink-0 text-stone-400">
                   <span className="text-lg font-black">{appt.date.split('-')[2]}</span>
                   <span className="text-xs opacity-70">{new Date(appt.date).toLocaleString('en', { month: 'short' })}</span>
                 </div>

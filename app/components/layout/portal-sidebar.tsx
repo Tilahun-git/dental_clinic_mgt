@@ -21,9 +21,9 @@ export function PortalSidebar() {
   const { user, logout } = useAuth();
 
   return (
-    <div className="flex flex-col h-full bg-[#111A16] text-white w-60 flex-shrink-0">
+    <div className="flex flex-col h-full bg-slate-700 text-white w-60 shrink-0">
       <div className="flex items-center gap-2.5 h-16 px-4 border-b border-white/10">
-        <div className="w-8 h-8 bg-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+        <div className="w-8 h-8 bg-emerald-600 rounded-xl flex items-center justify-center shrink-0">
           <Stethoscope size={16} className="text-white" />
         </div>
         <div>
@@ -39,7 +39,7 @@ export function PortalSidebar() {
             <Link key={item.href} href={item.href}
               className={cn('flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all',
                 isActive ? 'bg-emerald-600 text-white shadow-sm' : 'text-gray-400 hover:bg-white/10 hover:text-white')}>
-              <item.icon size={17} className="flex-shrink-0" />
+              <item.icon size={17} className="shrink-0" />
               <span>{item.label}</span>
             </Link>
           );
@@ -49,7 +49,7 @@ export function PortalSidebar() {
       <div className="border-t border-white/10 p-3">
         {user && (
           <div className="flex items-center gap-2 mb-2 px-1">
-            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
+            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-xs font-bold shrink-0">
               {user.name.split(' ').map(n => n[0]).slice(0,2).join('')}
             </div>
             <div className="min-w-0 flex-1">

@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { payrollRecords } from '../../../lib/mock-data';
 import { Card } from '../../../components/ui/card';
 import { Badge } from '../../../components/ui/badge';
-import { Banknote, CheckCircle2, Clock3, AlertTriangle, ArrowRight } from 'lucide-react';
+import { Banknote, CheckCircle2, Clock3, AlertTriangle, ArrowRight, Download } from 'lucide-react';
+import { printPayslip } from '../../../lib/document-utils';
 
 const payrollStatusMap: Record<string, { label: string; variant: 'success' | 'warning' | 'danger' | 'info' | 'default' }> = {
   DRAFT: { label: 'Draft', variant: 'default' },
@@ -91,9 +92,14 @@ export default function PayrollPage() {
                     <Badge variant={payrollStatusMap[record.status]?.variant ?? 'default'}>{payrollStatusMap[record.status]?.label ?? record.status}</Badge>
                   </td>
                   <td className="py-3 px-4">
-                    <Link href={`/clinic/payroll/${record.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-700">
-                      View <ArrowRight size={14} />
-                    </Link>
+                    <div className="flex items-center gap-3">
+                      <Link href={`/clinic/payroll/${record.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-violet-600 hover:text-violet-700">
+                        View <ArrowRight size={14} />
+                      </Link>
+                      <button onClick={() => printPayslip(record)} className="inline-flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-slate-800" title="Generate payslip">
+                        <Download size={14} /> Payslip
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
