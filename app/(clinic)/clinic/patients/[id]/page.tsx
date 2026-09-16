@@ -7,7 +7,7 @@ import { patients, invoices, treatmentPlans, prescriptions, medicalRecords } fro
 import { Card, CardHeader, CardTitle } from '../../../../components/ui/card';
 import { Badge, AppointmentBadge, InvoiceBadge } from '../../../../components/ui/badge';
 import { Button } from '../../../../components/ui/button';
-import { User, Phone, Mail, MapPin, Heart, AlertCircle, Calendar, ArrowLeft, FileDown, FileSpreadsheet } from 'lucide-react';
+import { Phone, Mail, MapPin, Heart, AlertCircle, Calendar, ArrowLeft, FileDown, FileSpreadsheet } from 'lucide-react';
 import Link from 'next/link';
 import { downloadExcel, downloadPdf } from '../../../../lib/document-utils';
 

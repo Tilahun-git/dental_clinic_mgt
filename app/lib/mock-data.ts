@@ -10,17 +10,55 @@ export type ToothCondition = 'HEALTHY' | 'CARIES' | 'MISSING' | 'FILLED' | 'CROW
 
 // ==================== SERVICES ====================
 
-export const services = [
-  { id: 's1', name: 'General Consultation', description: 'Comprehensive oral examination and diagnosis', duration: 30, price: 500, category: 'General', icon: '🦷', image: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=900&q=85' },
-  { id: 's2', name: 'Teeth Cleaning', description: 'Professional dental cleaning and scaling', duration: 45, price: 800, category: 'Preventive', icon: '✨', image: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=85' },
-  { id: 's3', name: 'Root Canal Treatment', description: 'Complete root canal therapy for infected teeth', duration: 90, price: 4500, category: 'Endodontic', icon: '🔬', image: 'https://images.unsplash.com/photo-1588776814546-daab30f310ce?auto=format&fit=crop&w=900&q=85' },
-  { id: 's4', name: 'Dental Implant', description: 'Permanent tooth replacement with titanium implant', duration: 120, price: 25000, category: 'Surgical', icon: '🔩', image: 'https://images.unsplash.com/photo-1606265752439-1f18756aa2a5?auto=format&fit=crop&w=900&q=85' },
-  { id: 's5', name: 'Teeth Whitening', description: 'Professional in-office whitening treatment', duration: 60, price: 3500, category: 'Cosmetic', icon: '⭐', image: 'https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?auto=format&fit=crop&w=900&q=85' },
-  { id: 's6', name: 'Orthodontics', description: 'Braces and clear aligners for teeth alignment', duration: 60, price: 35000, category: 'Orthodontic', icon: '😁', image: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85' },
-  { id: 's7', name: 'Tooth Extraction', description: 'Safe removal of damaged or impacted teeth', duration: 45, price: 1200, category: 'Surgical', icon: '🦺', image: 'https://images.unsplash.com/photo-1581585099405-3f7c5b4f3a4a?auto=format&fit=crop&w=900&q=85' },
-  { id: 's8', name: 'Dental Filling', description: 'Composite or amalgam filling for cavities', duration: 45, price: 1500, category: 'Restorative', icon: '🔧', image: 'https://images.unsplash.com/photo-1581585099405-3f7c5b4f3a4a?auto=format&fit=crop&w=900&q=85' },
-  { id: 's9', name: 'Dental Crown', description: 'Porcelain or metal crown for damaged teeth', duration: 90, price: 8000, category: 'Restorative', icon: '👑', image: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=85' },
+const serviceImages = [
+  'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1588776814546-daab30f310ce?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1581585099405-3f7c5b4f3a4a?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1606265752439-1f18756aa2a5?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1550831107-1553da8c8464?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85',
+  'https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?auto=format&fit=crop&w=900&q=85',
 ];
+
+const serviceCatalog: [string, string][] = [
+  ['Consultation', 'Diagnostics'],
+  ['IOPA X-ray', 'Diagnostics'],
+  ['Scaling / Cleaning', 'Preventive'],
+  ['Composite Filling', 'Restorative'],
+  ['Simple Extraction', 'Surgical'],
+  ['Root Canal Treatment', 'Endodontic'],
+  ['Zirconia', 'Prosthodontic'],
+  ['Implant', 'Surgical'],
+  ['Invisalign', 'Orthodontic'],
+  ['Bleaching', 'Cosmetic'],
+];
+
+const servicePricing: Record<string, { duration: number; price: number }> = {
+  Diagnostics: { duration: 30, price: 500 },
+  Preventive: { duration: 45, price: 800 },
+  Periodontal: { duration: 60, price: 1800 },
+  Restorative: { duration: 45, price: 1500 },
+  Surgical: { duration: 60, price: 2500 },
+  Endodontic: { duration: 90, price: 4500 },
+  Prosthodontic: { duration: 90, price: 8000 },
+  Orthodontic: { duration: 60, price: 3500 },
+  Cosmetic: { duration: 60, price: 3500 },
+  Pediatric: { duration: 45, price: 1200 },
+};
+
+export const services = serviceCatalog.map(([name, category], index) => ({
+  id: `s${index + 1}`,
+  name,
+  description: `${name} provided by SENAKO Dental Clinic with careful diagnosis and professional care.`,
+  duration: servicePricing[category].duration,
+  price: servicePricing[category].price,
+  category,
+  icon: category === 'Diagnostics' ? '🔎' : category === 'Preventive' ? '✨' : category === 'Surgical' ? '🦷' : category === 'Orthodontic' ? '😁' : category === 'Cosmetic' ? '⭐' : '🔬',
+  image: serviceImages[index],
+}));
 
 // ==================== DENTISTS ====================
 

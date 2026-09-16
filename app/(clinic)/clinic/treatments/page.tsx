@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useAuth } from '../../../lib/auth-context';
 import { useTreatments, type NewPlanInput, type TreatmentItem } from '../../../lib/treatments-store';
 import { patients, type TreatmentStatus } from '../../../lib/mock-data';
-import { Clipboard, Plus, X, ChevronDown, ChevronUp, Check } from 'lucide-react';
+import { Clipboard, Plus, X, ChevronDown, ChevronUp, Check, FileDown, FileSpreadsheet } from 'lucide-react';
+import { downloadExcel, downloadPdf } from '../../../lib/document-utils';
 
 const STATUS_COLORS: Record<string, string> = {
   COMPLETED:   'bg-emerald-100 text-emerald-700',
@@ -39,6 +40,8 @@ export default function TreatmentsPage() {
   const selectedPatient = patients.find(p => p.id === patientId);
   const total = items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
   const canCreatePlan = user?.role === 'DENTIST';
+  const treatmentHeaders = ['Patient', 'Diagnosis', 'Dentist', 'Created', 'Treatment', 'Quantity', 'Unit Price', 'Status'];
+  const treatmentRows = plans.flatMap(plan => plan.items.map(item => [plan.patientName, plan.diagnosis, plan.dentistName, plan.createdAt, item.service, item.quantity, item.unitPrice, item.status]));
 
   const handleSubmit = () => {
     if (!patientId || !diagnosis || items.some(i => !i.service)) return;
@@ -81,11 +84,19 @@ export default function TreatmentsPage() {
           <h1 className="text-2xl font-black text-stone-900">Treatment Plans</h1>
           <p className="text-stone-400 text-sm mt-0.5">{plans.length} plans on record</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} disabled={!canCreatePlan}
-          title={canCreatePlan ? 'Create a treatment plan for a patient' : 'Only dentists can create treatment plans'}
-          className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2.5 rounded-2xl transition-colors shadow-sm">
-          <Clipboard size={16} /> New Treatment Plan
-        </button>
+        <div className="flex items-center gap-2">
+          <button onClick={() => downloadPdf('treatment-plans.pdf', 'Treatment Plans Report', treatmentHeaders, treatmentRows)} className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold px-3 py-2.5 rounded-2xl transition-colors">
+            <FileDown size={15} /> PDF
+          </button>
+          <button onClick={() => downloadExcel('treatment-plans.xlsx', 'Treatment Plans', treatmentHeaders, treatmentRows)} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2.5 rounded-2xl transition-colors">
+            <FileSpreadsheet size={15} /> Excel
+          </button>
+          <button onClick={() => setShowForm(!showForm)} disabled={!canCreatePlan}
+            title={canCreatePlan ? 'Create a treatment plan for a patient' : 'Only dentists can create treatment plans'}
+            className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold px-5 py-2.5 rounded-2xl transition-colors shadow-sm">
+            <Clipboard size={16} /> New Treatment Plan
+          </button>
+        </div>
       </div>
 
       {/* New Plan Form */}

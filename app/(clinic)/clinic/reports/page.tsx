@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAppointments } from '../../../lib/appointments-store';
 import { patients, invoices, inventory, payrollRecords } from '../../../lib/mock-data';
 import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
-import { Download, FileDown, FileSpreadsheet } from 'lucide-react';
+import { FileDown, FileSpreadsheet } from 'lucide-react';
 import { downloadExcel, downloadPdf } from '../../../lib/document-utils';
 
 const tabs = ['Patient Reports', 'Appointment Reports', 'Financial Reports', 'Inventory Reports'];

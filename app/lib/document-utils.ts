@@ -110,17 +110,6 @@ export function downloadCsv(filename: string, headers: string[], rows: (string |
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function downloadBlob(filename: string, blob: Blob) {
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
 export function downloadPdf(filename: string, title: string, headers: string[], rows: (string | number)[][]) {
   const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
   const margin = 40;

@@ -56,6 +56,25 @@ body {
 
 .theme-toggle:hover { background: var(--primary-lt); }
 
+/* Legacy blue utility colors use the clinic's emerald and amber palette. */
+.bg-blue-50, .bg-sky-50 { background-color: var(--primary-lt) !important; }
+.bg-blue-100, .bg-sky-100 { background-color: #D8F0E1 !important; }
+.bg-blue-500, .bg-sky-500 { background-color: #18794E !important; }
+.bg-blue-600, .bg-sky-600 { background-color: #176B49 !important; }
+.bg-blue-700, .bg-sky-700 { background-color: #12583C !important; }
+.bg-blue-500\/10, .bg-sky-500\/10 { background-color: rgb(24 121 78 / 10%) !important; }
+.text-blue-500, .text-sky-500,
+.text-blue-600, .text-sky-600,
+.text-blue-700, .text-sky-700 { color: #18794E !important; }
+.border-blue-100, .border-sky-100,
+.border-blue-200, .border-sky-200 { border-color: #B9CFC0 !important; }
+.hover\:bg-blue-50:hover, .hover\:bg-sky-50:hover { background-color: var(--primary-lt) !important; }
+.hover\:bg-blue-600:hover, .hover\:bg-sky-600:hover { background-color: #12583C !important; }
+.hover\:text-blue-700:hover, .hover\:text-sky-700:hover { color: #12583C !important; }
+
+.dark .bg-blue-100, .dark .bg-sky-100 { background-color: #163425 !important; }
+.dark .bg-blue-500\/10, .dark .bg-sky-500\/10 { background-color: rgb(22 52 37 / 70%) !important; }
+
 .dark .bg-white { background-color: var(--bg-card); }
 .dark .bg-slate-50 { background-color: var(--surface-soft); }
 .dark .bg-slate-100,

@@ -8,25 +8,26 @@ export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="page-bg min-h-full px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-slate-800">Contact Us</h1>
-        <p className="text-slate-500 mt-3 text-lg">We'd love to hear from you. Get in touch with our team.</p>
+        <h1 className="text-4xl font-bold text-[var(--text-heading)]">Contact Us</h1>
+        <p className="text-[var(--text-muted)] mt-3 text-lg">We&apos;d love to hear from you. Get in touch with our team.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Contact info */}
         <div className="space-y-5">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
-            <h2 className="font-bold text-slate-800 text-lg mb-4">Clinic Information</h2>
+          <div className="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-6">
+            <h2 className="font-bold text-[var(--text-heading)] text-lg mb-4">Clinic Information</h2>
             <div className="space-y-4">
               <div className="flex gap-3">
                 <div className="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center flex-shrink-0">
                   <MapPin size={18} className="text-sky-600" />
                 </div>
                 <div>
-                  <p className="font-medium text-slate-700 text-sm">Address</p>
-                  <p className="text-slate-500 text-sm">Bole Road, Near Edna Mall<br/>Addis Ababa, Ethiopia</p>
+                  <p className="font-medium text-[var(--text-heading)] text-sm">Address</p>
+                  <p className="text-[var(--text-muted)] text-sm">Bole Road, Near Edna Mall<br/>Addis Ababa, Ethiopia</p>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -50,7 +51,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6">
+          <div className="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-6">
             <div className="flex gap-2 mb-4">
               <Clock size={18} className="text-sky-500" />
               <h2 className="font-bold text-slate-800">Clinic Hours</h2>
@@ -63,33 +64,42 @@ export default function ContactPage() {
                 { day: 'Emergency', hours: '24/7', em: true },
               ].map((h) => (
                 <div key={h.day} className="flex justify-between">
-                  <span className="text-slate-600">{h.day}</span>
-                  <span className={`font-medium ${h.em ? 'text-emerald-600' : 'text-slate-800'}`}>{h.hours}</span>
+                  <span className="text-[var(--text-muted)]">{h.day}</span>
+                  <span className={`font-medium ${h.em ? 'text-emerald-600' : 'text-[var(--text-heading)]'}`}>{h.hours}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Map placeholder */}
-          <div className="bg-slate-100 rounded-2xl overflow-hidden h-48 flex items-center justify-center border border-slate-200">
-            <div className="text-center text-slate-400">
-              <MapPin size={32} className="mx-auto mb-2" />
-              <p className="text-sm font-medium">Bole Road, Addis Ababa</p>
-              <p className="text-xs">Interactive map unavailable in demo</p>
-            </div>
+          <div className="bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border)]">
+            <iframe
+              title="SENAKO Dental Clinic location"
+              src="https://www.google.com/maps?q=Bole+Road+Near+Edna+Mall+Addis+Ababa+Ethiopia&output=embed"
+              className="w-full h-56 border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Bole+Road+Near+Edna+Mall+Addis+Ababa+Ethiopia"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-sky-600 hover:bg-sky-500/10 transition-colors"
+            >
+              <MapPin size={15} /> Open in Google Maps
+            </a>
           </div>
         </div>
 
         {/* Contact form */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-2xl border border-slate-200 p-8">
+          <div className="bg-[var(--bg-card)] rounded-2xl border border-[var(--border)] p-8">
             {submitted ? (
               <div className="text-center py-10">
                 <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle size={32} className="text-emerald-500" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-800 mb-2">Message Sent!</h3>
-                <p className="text-slate-500 mb-6">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+                <p className="text-slate-500 mb-6">Thank you for reaching out. We&apos;ll get back to you within 24 hours.</p>
                 <button
                   onClick={() => { setSubmitted(false); setForm({ name:'', email:'', phone:'', subject:'', message:'' }); }}
                   className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition-colors"
@@ -168,6 +178,7 @@ export default function ContactPage() {
             )}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
